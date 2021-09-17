@@ -21,7 +21,7 @@
     "jsx": "react-jsx",
     "noImplicitReturns": true,
     "noUnusedLocals": false,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "baseUrl": "src"
   },
   "include": [
