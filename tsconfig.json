@@ -20,8 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
     "baseUrl": "src"
   },
   "include": [
