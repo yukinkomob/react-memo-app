@@ -15,8 +15,6 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     // 'plugin:@typescript-eslint/recommended-requring-type-checking',
-    // 'prettier',
-    // 'prettier@typescript-eslint'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
