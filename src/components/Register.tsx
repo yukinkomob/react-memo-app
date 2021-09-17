@@ -36,7 +36,6 @@ function Register() {
   }
 
   function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
     switch (e.target.id) {
       case 'title':
         setTitle(e.target.value);
