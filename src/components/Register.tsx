@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
 function Register() {
   const [title, setTitle] = useState('');
@@ -32,6 +33,9 @@ function Register() {
       })
       .then((res) => {
         console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -74,6 +78,9 @@ function Register() {
       <br />
       <button type="submit" onClick={register}>
         登録
+      </button>
+      <button type="button" onClick={useHistory().goBack}>
+        戻る
       </button>
     </div>
   );
