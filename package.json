@@ -50,8 +50,10 @@
     ]
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.1.5",
     "@types/eslint": "^7.28.0",
     "@types/prettier": "^2.3.2",
+    "@types/react-router": "^5.1.16",
     "@types/react-router-dom": "^5.1.9",
     "@types/testing-library__jest-dom": "^5.14.1",
     "@types/testing-library__user-event": "^4.2.0",
