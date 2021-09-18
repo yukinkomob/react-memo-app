@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import Drawer from 'react-modern-drawer';
+
+import 'react-modern-drawer/dist/index.css';
 
 interface Task {
   id: string,
@@ -13,6 +16,10 @@ interface Task {
 
 function List() {
   const [tasks, setTasks] = useState<Array<Task>>();
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
   function getTasks() {
     console.log('getTasks');
@@ -93,16 +100,19 @@ function List() {
 
   return (
     <div>
-      <ul>
-        {tasks && tasks.map((t: Task) => (
-          <li>
-            {t.title}
-            {' '}
-            <button id={`delBtn${t.id}`} type="button" onClick={deleteTask}>削除</button>
-          </li>
-        ))}
-      </ul>
       <button type="button" onClick={useHistory().goBack}>戻る</button>
+      <button type="button" onClick={toggleDrawer}>Show</button>
+      <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
+        <ul>
+          {tasks && tasks.map((t: Task) => (
+            <li>
+              {t.title}
+              {' '}
+              <button id={`delBtn${t.id}`} type="button" onClick={deleteTask}>削除</button>
+            </li>
+          ))}
+        </ul>
+      </Drawer>
     </div>
   );
 }
