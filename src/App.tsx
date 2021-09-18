@@ -5,6 +5,8 @@ import List from './components/List';
 import './App.css';
 import Register from './components/Register';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <Router>
