@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Container from 'react-bootstrap/Container';
+import ExampleToast from './ExampleToast';
+
 function Login() {
   const headers = {
     'Content-Type': 'application/json',
@@ -21,6 +25,17 @@ function Login() {
 
   return (
     <div>
+      <Container className="p-3">
+        <Jumbotron>
+          <h1 className="header">Welcome To React-Bootstrap</h1>
+          <ExampleToast>
+            We now have Toasts
+            <span role="img" aria-label="tada">
+              🎉
+            </span>
+          </ExampleToast>
+        </Jumbotron>
+      </Container>
       <input placeholder="ID" />
       <br />
       <input placeholder="Pass" />
