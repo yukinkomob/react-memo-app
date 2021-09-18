@@ -55,6 +55,10 @@ function List() {
       });
   }
 
+  function selectTask() {
+    console.log('click');
+  }
+
   function deleteTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     console.log('e.currentTarget.id', e.currentTarget.id);
     const id = e.currentTarget.id.split('delBtn')[1];
@@ -105,7 +109,7 @@ function List() {
       <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
         <ul>
           {tasks && tasks.map((t: Task) => (
-            <li>
+            <li onClick={selectTask} aria-hidden>
               {t.title}
               {' '}
               <button id={`delBtn${t.id}`} type="button" onClick={deleteTask}>削除</button>
