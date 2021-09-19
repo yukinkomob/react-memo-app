@@ -2,10 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/Login';
 import List from './components/List';
-import './App.scss';
 import Register from './components/Register';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 
 function App() {
   return (
