@@ -116,6 +116,13 @@ function List() {
         <p>
           {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
             <Fragment key={index.toString()}>
+              <FloatingLabel controlId="floatingTextarea" label={t.title}>
+                <Form.Control
+                  as="input"
+                  placeholder="Leave a comment here"
+                  style={{ height: '3rem' }}
+                />
+              </FloatingLabel>
               <FloatingLabel controlId="floatingTextarea" label={t.description}>
                 <Form.Control
                   as="textarea"
