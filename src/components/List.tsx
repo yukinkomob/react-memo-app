@@ -116,18 +116,21 @@ function List() {
         <p>
           {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
             <Fragment key={index.toString()}>
-              <FloatingLabel controlId="floatingTextarea" label={t.title}>
+              <FloatingLabel controlId="floatingTextarea" label="タイトル">
                 <Form.Control
                   as="input"
                   placeholder="Leave a comment here"
                   style={{ height: '3rem' }}
+                  value={t.title}
                 />
               </FloatingLabel>
-              <FloatingLabel controlId="floatingTextarea" label={t.description}>
+              <FloatingLabel controlId="floatingTextarea" label="内容">
                 <Form.Control
+                  size="sm"
                   as="textarea"
                   placeholder="Leave a comment here"
                   style={{ height: '90vh' }}
+                  value={t.description}
                 />
               </FloatingLabel>
             </Fragment>
