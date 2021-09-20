@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Drawer from 'react-modern-drawer';
+import { FloatingLabel, Form } from 'react-bootstrap';
 
 import 'react-modern-drawer/dist/index.css';
 
@@ -17,6 +18,7 @@ interface Task {
 function List() {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string>('');
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -55,8 +57,10 @@ function List() {
       });
   }
 
-  function selectTask() {
-    console.log('click');
+  function selectTask(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+    const id = e.currentTarget.id.split('list-')[1];
+    setSelectedId(id);
+    console.log(id);
   }
 
   function deleteTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -104,15 +108,32 @@ function List() {
 
   return (
     <div>
-      <button type="button" onClick={useHistory().goBack}>戻る</button>
-      <button type="button" onClick={toggleDrawer}>Show</button>
+      <div className="d-grid gap-3">
+        <button type="button" className="btn btn-outline-primary" onClick={useHistory().goBack}>戻る（削除予定）</button>
+        <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
+      </div>
+      <div>
+        <p>
+          {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
+            <Fragment key={index.toString()}>
+              <FloatingLabel controlId="floatingTextarea" label={t.description}>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Leave a comment here"
+                  style={{ height: '90vh' }}
+                />
+              </FloatingLabel>
+            </Fragment>
+          ))}
+        </p>
+      </div>
       <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
         <ul>
           {tasks && tasks.map((t: Task) => (
-            <li onClick={selectTask} aria-hidden>
+            <li id={`list-${t.id}`} className="list-unstyled link-primary" onClick={selectTask} aria-hidden>
               {t.title}
               {' '}
-              <button id={`delBtn${t.id}`} type="button" onClick={deleteTask}>削除</button>
+              <button id={`delBtn${t.id}`} className="btn-close" type="button" onClick={deleteTask}> </button>
             </li>
           ))}
         </ul>
