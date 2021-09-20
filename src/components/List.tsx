@@ -50,6 +50,8 @@ function List() {
           return task;
         });
         setTasks(taskList);
+        const currentId = localStorage.getItem('currentId');
+        if (currentId) setSelectedId(currentId);
         console.log(res.data);
       })
       .catch((error) => {
@@ -60,6 +62,7 @@ function List() {
   function selectTask(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
     const id = e.currentTarget.id.split('list-')[1];
     setSelectedId(id);
+    localStorage.setItem('currentId', id);
     console.log(id);
   }
 
