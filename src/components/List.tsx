@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Drawer from 'react-modern-drawer';
-import { FloatingLabel, Form } from 'react-bootstrap';
+import { Container, FloatingLabel, Form } from 'react-bootstrap';
+import Header from './Header';
 
 import 'react-modern-drawer/dist/index.css';
 
@@ -111,46 +112,51 @@ function List() {
 
   return (
     <div>
-      <div className="d-grid gap-3">
-        <button type="button" className="btn btn-outline-primary" onClick={useHistory().goBack}>戻る（削除予定）</button>
-        <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
+      <Header />
+      <Container className="content-top">
+        <div className="d-grid gap-3">
+          <button type="button" className="btn btn-outline-primary" onClick={useHistory().goBack}>戻る（削除予定）</button>
+          <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
+        </div>
+        <div>
+          <p>
+            {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
+              <Fragment key={index.toString()}>
+                <FloatingLabel controlId="floatingTextarea" label="タイトル">
+                  <Form.Control
+                    as="input"
+                    placeholder="Leave a comment here"
+                    style={{ height: '3rem' }}
+                    value={t.title}
+                  />
+                </FloatingLabel>
+                <FloatingLabel controlId="floatingTextarea" label="内容">
+                  <Form.Control
+                    size="sm"
+                    as="textarea"
+                    placeholder="Leave a comment here"
+                    style={{ height: '90vh' }}
+                    value={t.description}
+                  />
+                </FloatingLabel>
+              </Fragment>
+            ))}
+          </p>
+        </div>
+      </Container>
+      <div className="content-top">
+        <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
+          <ul>
+            {tasks && tasks.map((t: Task) => (
+              <li id={`list-${t.id}`} className="list-unstyled link-primary" onClick={selectTask} aria-hidden>
+                {t.title}
+                {' '}
+                <button id={`delBtn${t.id}`} className="btn-close" type="button" onClick={deleteTask}> </button>
+              </li>
+            ))}
+          </ul>
+        </Drawer>
       </div>
-      <div>
-        <p>
-          {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
-            <Fragment key={index.toString()}>
-              <FloatingLabel controlId="floatingTextarea" label="タイトル">
-                <Form.Control
-                  as="input"
-                  placeholder="Leave a comment here"
-                  style={{ height: '3rem' }}
-                  value={t.title}
-                />
-              </FloatingLabel>
-              <FloatingLabel controlId="floatingTextarea" label="内容">
-                <Form.Control
-                  size="sm"
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  style={{ height: '90vh' }}
-                  value={t.description}
-                />
-              </FloatingLabel>
-            </Fragment>
-          ))}
-        </p>
-      </div>
-      <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
-        <ul>
-          {tasks && tasks.map((t: Task) => (
-            <li id={`list-${t.id}`} className="list-unstyled link-primary" onClick={selectTask} aria-hidden>
-              {t.title}
-              {' '}
-              <button id={`delBtn${t.id}`} className="btn-close" type="button" onClick={deleteTask}> </button>
-            </li>
-          ))}
-        </ul>
-      </Drawer>
     </div>
   );
 }
