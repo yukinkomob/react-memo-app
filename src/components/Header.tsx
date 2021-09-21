@@ -15,14 +15,14 @@ function Header() {
               <a className="nav-link" aria-current="page" href="http://www.google.com/">
                 <i className="far fa-sticky-note" />
                 {' '}
-                作成
+                書く
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="http://www.google.com/">
                 <i className="fas fa-list" />
                 {' '}
-                リストを見る
+                並べて表示
               </a>
             </li>
             <li className="nav-item">
@@ -36,11 +36,15 @@ function Header() {
               <a className="nav-link" href="http://www.google.com/">
                 <i className="fas fa-paperclip" />
                 {' '}
-                クリップ
+                振り返り
               </a>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="http://www.google.com/" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">設定</a>
+              <a className="nav-link dropdown-toggle" href="http://www.google.com/" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">
+                <i className="fas fa-user-cog" />
+                {' '}
+                設定
+              </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown01">
                 <li><a className="dropdown-item" href="http://www.google.com/">アクション</a></li>
                 <li><a className="dropdown-item" href="http://www.google.com/">その他のアクション</a></li>
