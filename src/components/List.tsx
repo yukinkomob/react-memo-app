@@ -19,6 +19,8 @@ function List() {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -51,7 +53,12 @@ function List() {
         });
         setTasks(taskList);
         const currentId = localStorage.getItem('currentId');
-        if (currentId) setSelectedId(currentId);
+        if (currentId) {
+          setSelectedId(currentId);
+          const task = taskList.find((t: any) => t.id === currentId);
+          setTitle(task.title);
+          setDescription(task.description);
+        }
         console.log(res.data);
       })
       .catch((error) => {
@@ -59,9 +66,58 @@ function List() {
       });
   }
 
+  function changeTitle(e: any, id: string) {
+    const newTitle = e.currentTarget.value;
+    if (tasks !== null && tasks !== undefined) {
+      const tempTasks = tasks.map((t) => {
+        if (t.id === id) {
+          const task = {
+            id: t.id,
+            title: newTitle,
+            category: t.category,
+            description: t.description,
+            date: t.date,
+            markDiv: t.markDiv,
+          };
+          return task;
+        }
+        return t;
+      });
+      setTasks(tempTasks);
+    }
+    setTitle(newTitle);
+  }
+
+  function changeDescription(e: any, id: string) {
+    const newDescription = e.currentTarget.value;
+    if (tasks !== null && tasks !== undefined) {
+      const tempTasks = tasks.map((t) => {
+        if (t.id === id) {
+          const task = {
+            id: t.id,
+            title: t.title,
+            category: t.category,
+            description: newDescription,
+            date: t.date,
+            markDiv: t.markDiv,
+          };
+          return task;
+        }
+        return t;
+      });
+      setTasks(tempTasks);
+    }
+    setDescription(newDescription);
+  }
+
   function selectTask(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
     const id = e.currentTarget.id.split('list-')[1];
     setSelectedId(id);
+    const task = tasks?.find((t) => t.id === id);
+    if (task) {
+      setTitle(task.title);
+      setDescription(task.description);
+    }
     localStorage.setItem('currentId', id);
     console.log(id);
   }
@@ -118,27 +174,31 @@ function List() {
         </div>
         <div>
           <p>
-            {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
-              <Fragment key={index.toString()}>
-                <FloatingLabel controlId="floatingTextarea" label="タイトル">
-                  <Form.Control
-                    as="input"
-                    placeholder="Leave a comment here"
-                    style={{ height: '3rem' }}
-                    value={t.title}
-                  />
-                </FloatingLabel>
-                <FloatingLabel controlId="floatingTextarea" label="内容">
-                  <Form.Control
-                    size="sm"
-                    as="textarea"
-                    placeholder="Leave a comment here"
-                    style={{ height: '90vh' }}
-                    value={t.description}
-                  />
-                </FloatingLabel>
-              </Fragment>
-            ))}
+            <Form>
+              {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
+                <Fragment key={index.toString()}>
+                  <FloatingLabel controlId="floatingTextarea" label="タイトル">
+                    <Form.Control
+                      as="input"
+                      placeholder="Leave a comment here"
+                      style={{ height: '3rem' }}
+                      value={title}
+                      onChange={(e) => changeTitle(e, t.id)}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel controlId="floatingTextarea" label="内容">
+                    <Form.Control
+                      size="sm"
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: '90vh' }}
+                      value={description}
+                      onChange={(e) => changeDescription(e, t.id)}
+                    />
+                  </FloatingLabel>
+                </Fragment>
+              ))}
+            </Form>
           </p>
         </div>
       </Container>
