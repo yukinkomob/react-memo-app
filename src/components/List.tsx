@@ -223,16 +223,20 @@ const List: React.FC<Props> = ({ newId }) => {
 
   return (
     <div>
-      <Container className="content-top">
-        <div className="d-grid gap-3">
-          <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
+      <Container className="content-top pt-3">
+        <div className="d-grid gap-3 col-3 mb-3">
+          <button type="button" className="btn btn-outline-info" onClick={toggleDrawer}>
+            <i className="far fa-folder-open" />
+            {' '}
+            ツリーを表示
+          </button>
         </div>
         <div>
           <p>
             <Form>
               {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
                 <Fragment key={index.toString()}>
-                  <FloatingLabel controlId="floatingTextarea" label="タイトル">
+                  <FloatingLabel className="mb-1" controlId="floatingTextarea" label="タイトル">
                     <Form.Control
                       as="input"
                       placeholder="Leave a comment here"
@@ -246,7 +250,7 @@ const List: React.FC<Props> = ({ newId }) => {
                       size="sm"
                       as="textarea"
                       placeholder="Leave a comment here"
-                      style={{ height: '90vh' }}
+                      style={{ height: '70vh' }}
                       value={description}
                       onChange={(e) => changeDescription(e, t.id)}
                     />
