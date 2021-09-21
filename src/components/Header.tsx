@@ -1,10 +1,11 @@
 import React from 'react';
 
 interface Props {
-  onNewTask: VoidFunction
+  onNewTask: VoidFunction,
+  onRecommendTask: VoidFunction
 }
 
-const Header: React.FC<Props> = ({ onNewTask }) => (
+const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
   <nav className="navbar navbar-expand-md navbar bg-light border fixed-top">
     <div className="container-fluid">
       <img className="header-logo" src="/logo.png" width="300px" height="100px" alt="logo" />
@@ -26,12 +27,10 @@ const Header: React.FC<Props> = ({ onNewTask }) => (
               並べて表示
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="http://www.google.com/">
-              <i className="fas fa-hand-holding-heart" />
-              {' '}
-              おまかせ表示
-            </a>
+          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer" onClick={onRecommendTask} aria-hidden>
+            <i className="fas fa-hand-holding-heart" />
+            {' '}
+            おまかせ表示
           </li>
           <li className="nav-item">
             <a className="nav-link" href="http://www.google.com/">
