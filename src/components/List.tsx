@@ -21,6 +21,7 @@ function List() {
   const [selectedId, setSelectedId] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [updatedTask, setUpdatedTask] = useState<Task | null>(null);
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -68,6 +69,7 @@ function List() {
 
   function changeTitle(e: any, id: string) {
     const newTitle = e.currentTarget.value;
+    let newTask: Task | null | undefined = null;
     if (tasks !== null && tasks !== undefined) {
       const tempTasks = tasks.map((t) => {
         if (t.id === id) {
@@ -83,13 +85,18 @@ function List() {
         }
         return t;
       });
+      newTask = tempTasks.find((t) => t.id === id);
       setTasks(tempTasks);
     }
     setTitle(newTitle);
+    if (newTask !== null && newTask !== undefined) {
+      setUpdatedTask(newTask);
+    }
   }
 
   function changeDescription(e: any, id: string) {
     const newDescription = e.currentTarget.value;
+    let newTask: Task | null | undefined = null;
     if (tasks !== null && tasks !== undefined) {
       const tempTasks = tasks.map((t) => {
         if (t.id === id) {
@@ -105,9 +112,13 @@ function List() {
         }
         return t;
       });
+      newTask = tempTasks.find((t) => t.id === id);
       setTasks(tempTasks);
     }
     setDescription(newDescription);
+    if (newTask !== null && newTask !== undefined) {
+      setUpdatedTask(newTask);
+    }
   }
 
   function selectTask(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
@@ -160,6 +171,42 @@ function List() {
     console.log('newTasks', newTasks);
     setTasks(newTasks);
   }
+
+  useEffect(() => {
+    function updateTask(newTask: Task) {
+      const token = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+      const body = {
+        title: newTask?.title,
+        category: newTask?.category,
+        description: newTask?.description,
+        date: newTask?.date,
+        mark_div: newTask?.markDiv ? 1 : 0,
+      };
+      axios
+        .put(`https://raisetech-memo-api.herokuapp.com/api/memo/${newTask.id}`, body, {
+          headers,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setUpdatedTask(null);
+        });
+    }
+
+    if (updatedTask !== null) {
+      console.log(updatedTask);
+      updateTask(updatedTask);
+    }
+  }, [updatedTask]);
 
   useEffect(() => {
     getTasks();
