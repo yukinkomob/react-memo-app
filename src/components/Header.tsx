@@ -46,9 +46,34 @@ function Header() {
                 設定
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown01">
-                <li><a className="dropdown-item" href="http://www.google.com/">アクション</a></li>
-                <li><a className="dropdown-item" href="http://www.google.com/">その他のアクション</a></li>
-                <li><a className="dropdown-item" href="http://www.google.com/">その他</a></li>
+                <li>
+                  <a className="dropdown-item" href="http://www.google.com/">
+                    <i className="fas fa-arrow-circle-up" />
+                    {' '}
+                    有料版について
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="http://www.google.com/">
+                    <i className="fas fa-cog" />
+                    {' '}
+                    アプリの設定
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="http://www.google.com/">
+                    <i className="fas fa-user" />
+                    {' '}
+                    アカウントの設定
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="http://www.google.com/">
+                    <i className="fas fa-laptop" />
+                    {' '}
+                    このアプリについて
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>

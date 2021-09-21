@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import Drawer from 'react-modern-drawer';
 import { Container, FloatingLabel, Form } from 'react-bootstrap';
 import Header from './Header';
@@ -115,7 +114,6 @@ function List() {
       <Header />
       <Container className="content-top">
         <div className="d-grid gap-3">
-          <button type="button" className="btn btn-outline-primary" onClick={useHistory().goBack}>戻る（削除予定）</button>
           <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
         </div>
         <div>
@@ -144,8 +142,8 @@ function List() {
           </p>
         </div>
       </Container>
-      <div className="content-top">
-        <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
+      <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
+        <div className="content-top">
           <ul>
             {tasks && tasks.map((t: Task) => (
               <li id={`list-${t.id}`} className="list-unstyled link-primary" onClick={selectTask} aria-hidden>
@@ -155,8 +153,8 @@ function List() {
               </li>
             ))}
           </ul>
-        </Drawer>
-      </div>
+        </div>
+      </Drawer>
     </div>
   );
 }
