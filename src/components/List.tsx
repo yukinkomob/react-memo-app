@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
-import { Container, FloatingLabel, Form } from 'react-bootstrap';
+import {
+  Col,
+  Container, FloatingLabel, Form, Row,
+} from 'react-bootstrap';
 
 import 'react-modern-drawer/dist/index.css';
 
@@ -224,12 +227,31 @@ const List: React.FC<Props> = ({ newId }) => {
   return (
     <div>
       <Container className="content-top pt-3">
-        <div className="d-grid gap-3 col-3 mb-3">
-          <button type="button" className="btn btn-outline-info" onClick={toggleDrawer}>
-            <i className="far fa-folder-open" />
-            {' '}
-            ツリーを表示
-          </button>
+        <div className="mb-3">
+          <Row>
+            <Col>
+              <button type="button" className="col-3 btn btn-outline-info me-3" onClick={toggleDrawer}>
+                <i className="far fa-folder-open" />
+                {' '}
+                ツリーを表示
+              </button>
+              <button type="button" className="btn btn-outline-secondary me-3" onClick={toggleDrawer}>
+                <i className="fas fa-tags" />
+                {' '}
+                ラベルを追加
+              </button>
+              <button type="button" className="btn btn-outline-secondary me-3" onClick={toggleDrawer}>
+                <i className="fas fa-paperclip" />
+                {' '}
+                取り置く
+              </button>
+              <button type="button" className="btn btn-outline-danger" onClick={toggleDrawer}>
+                <i className="far fa-trash-alt" />
+                {' '}
+                削除
+              </button>
+            </Col>
+          </Row>
         </div>
         <div>
           <p>

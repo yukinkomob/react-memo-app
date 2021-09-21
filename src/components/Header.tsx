@@ -36,7 +36,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
             <a className="nav-link" href="http://www.google.com/">
               <i className="fas fa-paperclip" />
               {' '}
-              振り返り
+              振り返る
             </a>
           </li>
           <li className="nav-item dropdown">
