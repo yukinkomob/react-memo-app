@@ -14,7 +14,11 @@ interface Task {
   markDiv: boolean
 }
 
-function List() {
+interface Props {
+  newId: string
+}
+
+const List: React.FC<Props> = ({ newId }) => {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>('');
@@ -24,47 +28,6 @@ function List() {
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
-
-  function getTasks() {
-    console.log('getTasks');
-
-    const token = localStorage.getItem('token');
-    console.log('token', token);
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
-    axios
-      .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
-        headers,
-      })
-      .then((res) => {
-        console.log(res);
-        const taskList = res.data.map((d: any) => {
-          const task = {
-            id: d.id,
-            title: d.title,
-            category: d.category,
-            description: d.description,
-            date: d.date,
-            markDiv: d.mark_div,
-          };
-          return task;
-        });
-        setTasks(taskList);
-        const currentId = localStorage.getItem('currentId');
-        if (currentId) {
-          setSelectedId(currentId);
-          const task = taskList.find((t: any) => t.id === currentId);
-          setTitle(task.title);
-          setDescription(task.description);
-        }
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   function changeTitle(e: any, id: string) {
     const newTitle = e.currentTarget.value;
@@ -208,8 +171,55 @@ function List() {
   }, [updatedTask]);
 
   useEffect(() => {
+    function getTasks() {
+      console.log('getTasks');
+
+      const token = localStorage.getItem('token');
+      console.log('token', token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+        .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
+          headers,
+        })
+        .then((res) => {
+          console.log(res);
+          const taskList = res.data.map((d: any) => {
+            const task = {
+              id: d.id,
+              title: d.title,
+              category: d.category,
+              description: d.description,
+              date: d.date,
+              markDiv: d.mark_div,
+            };
+            return task;
+          });
+          setTasks(taskList);
+          let currentId: string | null = null;
+          if (newId !== '') {
+            currentId = newId;
+            localStorage.setItem('currentId', currentId);
+          } else {
+            currentId = localStorage.getItem('currentId');
+          }
+          if (currentId) {
+            setSelectedId(currentId);
+            const task = taskList.find((t: any) => t.id === currentId);
+            setTitle(task.title);
+            setDescription(task.description);
+          }
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
     getTasks();
-  }, []);
+  }, [newId]);
 
   return (
     <div>
@@ -262,6 +272,6 @@ function List() {
       </Drawer>
     </div>
   );
-}
+};
 
 export default List;
