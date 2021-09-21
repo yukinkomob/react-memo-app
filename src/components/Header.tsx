@@ -1,6 +1,10 @@
 import React from 'react';
 
 function Header() {
+  function newTask() {
+    console.log('newTask');
+  }
+
   return (
     <nav className="navbar navbar-expand-md navbar bg-light border fixed-top">
       <div className="container-fluid">
@@ -11,12 +15,10 @@ function Header() {
 
         <div className="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item active">
-              <a className="nav-link" aria-current="page" href="http://www.google.com/">
-                <i className="far fa-sticky-note" />
-                {' '}
-                書く
-              </a>
+            <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer" onClick={newTask} aria-hidden>
+              <i className="far fa-sticky-note" />
+              {' '}
+              書く
             </li>
             <li className="nav-item">
               <a className="nav-link" href="http://www.google.com/">

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Main from 'components/Main';
 import Login from './components/Login';
-import List from './components/List';
 import Register from './components/Register';
 
 import './App.scss';
@@ -15,7 +15,7 @@ function App() {
       </Helmet>
       <Router>
         <Route exact path="/List">
-          <List />
+          <Main />
         </Route>
         <Route exact path="/Register">
           <Register />

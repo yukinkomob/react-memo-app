@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
 import { Container, FloatingLabel, Form } from 'react-bootstrap';
-import Header from './Header';
 
 import 'react-modern-drawer/dist/index.css';
 
@@ -214,7 +213,6 @@ function List() {
 
   return (
     <div>
-      <Header />
       <Container className="content-top">
         <div className="d-grid gap-3">
           <button type="button" className="btn btn-info" onClick={toggleDrawer}>ファイルリストを表示</button>
