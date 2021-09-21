@@ -48,9 +48,9 @@ function Header() {
               <ul className="dropdown-menu" aria-labelledby="dropdown01">
                 <li>
                   <a className="dropdown-item" href="http://www.google.com/">
-                    <i className="fas fa-arrow-circle-up" />
+                    <i className="fas fa-sign-out-alt" />
                     {' '}
-                    有料版について
+                    ログアウト
                   </a>
                 </li>
                 <li>
@@ -65,6 +65,13 @@ function Header() {
                     <i className="fas fa-user" />
                     {' '}
                     アカウントの設定
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="http://www.google.com/">
+                    <i className="fas fa-arrow-circle-up" />
+                    {' '}
+                    有料版について
                   </a>
                 </li>
                 <li>
