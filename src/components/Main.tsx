@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Header from './Header';
-import List from './List';
+import MemoEditor from './MemoEditor';
 
 function Main() {
   const [newId, setNewId] = useState<string>('');
@@ -89,10 +89,10 @@ function Main() {
         onChangePage={(t: string) => changePage(t)}
       />
       {
-        pageType === '' && <List newId={newId} />
+        pageType === '' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <List newId={newId} />
+        pageType === 'list' && <MemoEditor newId={newId} />
       }
     </>
   );

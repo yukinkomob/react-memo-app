@@ -14,7 +14,7 @@ function App() {
         <script src="https://kit.fontawesome.com/98c77f9d64.js" crossOrigin="anonymous" />
       </Helmet>
       <Router>
-        <Route exact path="/List">
+        <Route exact path="/Edit">
           <Main />
         </Route>
         <Route exact path="/Register">

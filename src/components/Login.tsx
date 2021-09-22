@@ -45,7 +45,7 @@ function Login() {
       </Container>
 
       <br />
-      <Link to="/List">List</Link>
+      <Link to="/Edit">Edit</Link>
       <br />
       <Link to="/Register">Register</Link>
     </div>

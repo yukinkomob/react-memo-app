@@ -21,7 +21,7 @@ interface Props {
   newId: string
 }
 
-const List: React.FC<Props> = ({ newId }) => {
+const MemoEditor: React.FC<Props> = ({ newId }) => {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>('');
@@ -345,4 +345,4 @@ const List: React.FC<Props> = ({ newId }) => {
   );
 };
 
-export default List;
+export default MemoEditor;
