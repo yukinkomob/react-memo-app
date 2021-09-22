@@ -26,6 +26,7 @@ const List: React.FC<Props> = ({ newId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>('');
   const [title, setTitle] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [updatedTask, setUpdatedTask] = useState<Task | null>(null);
   const toggleDrawer = () => {
@@ -54,6 +55,33 @@ const List: React.FC<Props> = ({ newId }) => {
       setTasks(tempTasks);
     }
     setTitle(newTitle);
+    if (newTask !== null && newTask !== undefined) {
+      setUpdatedTask(newTask);
+    }
+  }
+
+  function changeCategory(e: any, id: string) {
+    const newCategory = e.currentTarget.value;
+    let newTask: Task | null | undefined = null;
+    if (tasks !== null && tasks !== undefined) {
+      const tempTasks = tasks.map((t) => {
+        if (t.id === id) {
+          const task = {
+            id: t.id,
+            title: t.title,
+            category: newCategory,
+            description: t.description,
+            date: t.date,
+            markDiv: t.markDiv,
+          };
+          return task;
+        }
+        return t;
+      });
+      newTask = tempTasks.find((t) => t.id === id);
+      setTasks(tempTasks);
+    }
+    setCategory(newCategory);
     if (newTask !== null && newTask !== undefined) {
       setUpdatedTask(newTask);
     }
@@ -92,6 +120,7 @@ const List: React.FC<Props> = ({ newId }) => {
     const task = tasks?.find((t) => t.id === id);
     if (task) {
       setTitle(task.title);
+      setCategory(task.category);
       setDescription(task.description);
     }
     localStorage.setItem('currentId', id);
@@ -212,6 +241,7 @@ const List: React.FC<Props> = ({ newId }) => {
             setSelectedId(currentId);
             const task = taskList.find((t: any) => t.id === currentId);
             setTitle(task.title);
+            setCategory(task.category);
             setDescription(task.description);
           }
           console.log(res.data);
@@ -258,15 +288,30 @@ const List: React.FC<Props> = ({ newId }) => {
             <Form>
               {tasks && tasks.filter((t) => t.id === selectedId).map((t: Task, index: number) => (
                 <Fragment key={index.toString()}>
-                  <FloatingLabel className="mb-1" controlId="floatingTextarea" label="タイトル">
-                    <Form.Control
-                      as="input"
-                      placeholder="Leave a comment here"
-                      style={{ height: '3rem' }}
-                      value={title}
-                      onChange={(e) => changeTitle(e, t.id)}
-                    />
-                  </FloatingLabel>
+                  <Row className="g-2">
+                    <Col md={9}>
+                      <FloatingLabel className="mb-1" controlId="floatingTextarea" label="タイトル">
+                        <Form.Control
+                          as="input"
+                          placeholder="Leave a comment here"
+                          style={{ height: '3rem' }}
+                          value={title}
+                          onChange={(e) => changeTitle(e, t.id)}
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col md>
+                      <FloatingLabel className="mb-1" controlId="floatingTextarea" label="カテゴリ">
+                        <Form.Control
+                          as="input"
+                          placeholder="Leave a comment here"
+                          style={{ height: '3rem' }}
+                          value={category}
+                          onChange={(e) => changeCategory(e, t.id)}
+                        />
+                      </FloatingLabel>
+                    </Col>
+                  </Row>
                   <FloatingLabel controlId="floatingTextarea" label="内容">
                     <Form.Control
                       size="sm"
