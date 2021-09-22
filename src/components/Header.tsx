@@ -1,11 +1,16 @@
 import React from 'react';
 
-interface Props {
-  onNewTask: VoidFunction,
-  onRecommendTask: VoidFunction
+interface onChangePageType {
+  (type: string): void;
 }
 
-const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
+interface Props {
+  onNewTask: VoidFunction,
+  onRecommendTask: VoidFunction,
+  onChangePage: onChangePageType
+}
+
+const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) => (
   <nav className="navbar navbar-expand-md navbar bg-light border fixed-top">
     <div className="container-fluid">
       <img className="header-logo" src="/logo.png" width="300px" height="100px" alt="logo" />
@@ -20,12 +25,10 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
             {' '}
             書く
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="http://www.google.com/">
-              <i className="fas fa-list" />
-              {' '}
-              並べて表示
-            </a>
+          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer" onClick={() => onChangePage('list')} aria-hidden>
+            <i className="fas fa-list" />
+            {' '}
+            並べて表示
           </li>
           <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer" onClick={onRecommendTask} aria-hidden>
             <i className="fas fa-hand-holding-heart" />
@@ -89,7 +92,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
                 <a className="dropdown-item" href="http://www.google.com/">
                   <i className="fas fa-arrow-circle-up" />
                   {' '}
-                  有料版について
+                  有料版のご紹介
                 </a>
               </li>
               <li>

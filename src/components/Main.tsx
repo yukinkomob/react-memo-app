@@ -35,6 +35,10 @@ function Main() {
       });
   }
 
+  function changePage(type: string) {
+    console.log('type', type);
+  }
+
   function getTasks() {
     console.log('getTasks');
 
@@ -77,7 +81,11 @@ function Main() {
 
   return (
     <>
-      <Header onNewTask={() => newTask()} onRecommendTask={() => recommendTask()} />
+      <Header
+        onNewTask={() => newTask()}
+        onRecommendTask={() => recommendTask()}
+        onChangePage={(t: string) => changePage(t)}
+      />
       <List newId={newId} />
     </>
   );
