@@ -39,6 +39,13 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
               振り返る
             </a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="http://www.google.com/">
+              <i className="fas fa-store" />
+              {' '}
+              グッズ
+            </a>
+          </li>
           <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="http://www.google.com/" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">
               <i className="fas fa-user-cog" />
@@ -65,6 +72,17 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask }) => (
                   <i className="fas fa-user" />
                   {' '}
                   アカウントの設定
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="http://www.google.com/">
+                  <i className="fab fa-android" />
+                  {' '}
+                  Android /
+                  {' '}
+                  <i className="fab fa-app-store-ios" />
+                  {' '}
+                  iOS
                 </a>
               </li>
               <li>
