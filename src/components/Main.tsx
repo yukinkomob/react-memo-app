@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Header from './Header';
+import List from './List';
 import MemoEditor from './MemoEditor';
 
 function Main() {
@@ -92,7 +93,7 @@ function Main() {
         pageType === '' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <MemoEditor newId={newId} />
+        pageType === 'list' && <List />
       }
     </>
   );
