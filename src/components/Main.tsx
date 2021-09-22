@@ -5,6 +5,7 @@ import List from './List';
 
 function Main() {
   const [newId, setNewId] = useState<string>('');
+  const [pageType, setPageType] = useState<string>('');
 
   function newTask() {
     console.log('newPage');
@@ -37,6 +38,7 @@ function Main() {
 
   function changePage(type: string) {
     console.log('type', type);
+    setPageType(type);
   }
 
   function getTasks() {
@@ -86,7 +88,12 @@ function Main() {
         onRecommendTask={() => recommendTask()}
         onChangePage={(t: string) => changePage(t)}
       />
-      <List newId={newId} />
+      {
+        pageType === '' && <List newId={newId} />
+      }
+      {
+        pageType === 'list' && <List newId={newId} />
+      }
     </>
   );
 }
