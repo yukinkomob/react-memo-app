@@ -54,9 +54,22 @@ const List = () => {
 
   return (
     <div className="content-top">
-      <Container>
+      <Container className="pt-3">
         <ListGroup>
-          {tasks && tasks.map((t) => <ListGroup.Item>{t.title}</ListGroup.Item>)}
+          {tasks && tasks.map((t) => (
+            <ListGroup.Item>
+              {t.title}
+              {' '}
+              {' '}
+              {' '}
+              <span className="badge rounded-pill bg-secondary">{t.category}</span>
+              <br />
+              <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0">
+                {'> '}
+                {t.description}
+              </p>
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </Container>
     </div>
