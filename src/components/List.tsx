@@ -14,6 +14,22 @@ interface Task {
 const List = () => {
   const [tasks, setTasks] = useState<Array<Task>>();
 
+  function makeDateStr(date: string) {
+    if (date === '') {
+      return '';
+    }
+    const today = new Date();
+    const thisDay = new Date(date);
+    if (today.getFullYear() === thisDay.getFullYear() && today.getMonth() === thisDay.getMonth()) {
+      if (today.getDay() === thisDay.getDay()) {
+        return '今日';
+      } if (today.getDay() - 1 === thisDay.getDay()) {
+        return '昨日';
+      }
+    }
+    return date;
+  }
+
   useEffect(() => {
     function getTasks() {
       console.log('getTasks');
@@ -58,16 +74,21 @@ const List = () => {
         <ListGroup>
           {tasks && tasks.map((t) => (
             <ListGroup.Item>
-              {t.title}
-              {' '}
-              {' '}
-              {' '}
-              <span className="badge rounded-pill bg-secondary">{t.category}</span>
-              <br />
-              <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0">
-                {'> '}
-                {t.description}
-              </p>
+              <div>
+                {t.title}
+                {' '}
+                {' '}
+                {' '}
+                <span className="badge rounded-pill bg-secondary">{t.category}</span>
+                <div className="position-absolute top-0 end-0 mt-1 me-3">
+                  <span className="block text-right list-date">{makeDateStr(t.date)}</span>
+                </div>
+                <br />
+                <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0">
+                  {'> '}
+                  {t.description}
+                </p>
+              </div>
             </ListGroup.Item>
           ))}
         </ListGroup>

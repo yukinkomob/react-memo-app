@@ -8,6 +8,11 @@ function Main() {
   const [newId, setNewId] = useState<string>('');
   const [pageType, setPageType] = useState<string>('');
 
+  function todayDateStr() {
+    const date = new Date(Date.now());
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+
   function newTask() {
     console.log('newPage');
     const token = localStorage.getItem('token');
@@ -19,7 +24,7 @@ function Main() {
       title: '(new)',
       category: '',
       description: '',
-      date: '2021-09-22',
+      date: todayDateStr(),
       mark_div: 0,
     };
 
