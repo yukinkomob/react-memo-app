@@ -46,7 +46,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             <a className="nav-link" href="https://suzuri.jp/Memooth24/">
               <i className="fas fa-store" />
               {' '}
-              グッズ
+              ストア
             </a>
           </li>
           <li className="nav-item dropdown">
