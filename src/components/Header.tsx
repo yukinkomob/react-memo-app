@@ -43,7 +43,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="http://www.google.com/">
+            <a className="nav-link" href="https://suzuri.jp/Memooth24/">
               <i className="fas fa-store" />
               {' '}
               グッズ
