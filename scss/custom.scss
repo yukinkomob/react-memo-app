@@ -22,6 +22,10 @@
     color: #777777;
 }
 
+.text-purple-color {
+    color: rgb(36, 7, 71) !important
+}
+
 .link-purple-color {
     color: rgb(36, 7, 71) !important
 }
@@ -47,4 +51,24 @@
     color: #fff;
     background-color: rgb(79, 16, 156);
     border-color: rgb(79, 16, 156);
+}
+
+.bg-category {
+    background-color: rgb(192, 196, 224);
+}
+
+.list-item {
+    background-color: white;
+}
+
+.list-item:hover {
+    background-color: rgb(225, 226, 240);;
+}
+
+.list-icon-items {
+    visibility: hidden;
+}
+
+.list-icon-items:hover {
+    visibility: visible;
 }

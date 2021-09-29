@@ -13,6 +13,7 @@ interface Task {
 
 const List = () => {
   const [tasks, setTasks] = useState<Array<Task>>();
+  const [focusedId, setFocusedId] = useState<string>('');
 
   function makeDateStr(date: string) {
     if (date === '') {
@@ -68,26 +69,44 @@ const List = () => {
     getTasks();
   }, []);
 
+  function enter(id: string) {
+    console.log('enter');
+    setFocusedId(id);
+  }
+
+  function leave() {
+    console.log('leave');
+    setFocusedId('');
+  }
+
   return (
     <div className="content-top">
       <Container className="pt-3">
         <ListGroup>
           {tasks && tasks.map((t) => (
-            <ListGroup.Item>
-              <div>
-                {t.title}
+            <ListGroup.Item className="list-item">
+              <div className="cursor-pointer" onMouseEnter={() => enter(t.id)} onMouseLeave={leave}>
+                <span className="text-purple-color">{t.title}</span>
                 {' '}
                 {' '}
                 {' '}
-                <span className="badge rounded-pill bg-secondary">{t.category}</span>
+                <div className="position-absolute top-0 end-0 mt-1 me-5">
+                  <span className="block text-right me-5 badge rounded-pill bg-category">{t.category}</span>
+                </div>
                 <div className="position-absolute top-0 end-0 mt-1 me-3">
                   <span className="block text-right list-date">{makeDateStr(t.date)}</span>
                 </div>
                 <br />
-                <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0">
-                  {'> '}
-                  {t.description}
-                </p>
+                <div className="row">
+                  <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0 col-10">
+                    {'> '}
+                    {t.description}
+                  </p>
+                  <div className="col-2 text-end">
+                    <span className={['link-secondary', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-box me-2 cursor-pointer" /></span>
+                    <span className={['link-danger', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-trash-alt me-1 cursor-pointer" /></span>
+                  </div>
+                </div>
               </div>
             </ListGroup.Item>
           ))}
