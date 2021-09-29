@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container, ListGroup } from 'react-bootstrap';
+import {
+  Button, ButtonGroup, Container, ListGroup,
+} from 'react-bootstrap';
 
 interface Task {
   id: string,
@@ -82,6 +84,20 @@ const List = () => {
   return (
     <div className="content-top">
       <Container className="pt-3">
+        <ButtonGroup className="mb-3 me-3" aria-label="item-display">
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-equals" /></Button>
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrows-alt-v" /></Button>
+          <Button className="btn-outline-header" variant="null"><i className="far fa-credit-card" /></Button>
+        </ButtonGroup>
+        <ButtonGroup className="mb-3 me-3" aria-label="item-display">
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-font" /></Button>
+          <Button className="btn-outline-header" variant="null"><i className="far fa-clock" /></Button>
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-tag" /></Button>
+        </ButtonGroup>
+        <ButtonGroup className="mb-3" aria-label="item-display">
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrow-up" /></Button>
+          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrow-down" /></Button>
+        </ButtonGroup>
         <ListGroup>
           {tasks && tasks.map((t) => (
             <ListGroup.Item className="list-item">
@@ -103,7 +119,7 @@ const List = () => {
                     {t.description}
                   </p>
                   <div className="col-2 text-end">
-                    <span className={['link-secondary', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-box me-2 cursor-pointer" /></span>
+                    <span className={['link-warning', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-box me-2 cursor-pointer" /></span>
                     <span className={['link-danger', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-trash-alt me-1 cursor-pointer" /></span>
                   </div>
                 </div>
