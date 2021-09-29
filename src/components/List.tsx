@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, ButtonGroup, Container, ListGroup,
 } from 'react-bootstrap';
+import ReactTooltip from 'react-tooltip';
 
 interface Task {
   id: string,
@@ -13,9 +14,16 @@ interface Task {
   markDiv: boolean
 }
 
+type ListType = 'twoLine' | 'expand' | 'card'
+type SortType = 'dateSort' | 'charSort' | 'categorySort'
+type OrderType = 'ascending' | 'descending'
+
 const List = () => {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [focusedId, setFocusedId] = useState<string>('');
+  const [listType, setListType] = useState<ListType>('twoLine');
+  const [sortType, setSortType] = useState<SortType>('dateSort');
+  const [orderType, setOrderType] = useState<OrderType>('ascending');
 
   function makeDateStr(date: string) {
     if (date === '') {
@@ -72,34 +80,92 @@ const List = () => {
   }, []);
 
   function enter(id: string) {
-    console.log('enter');
     setFocusedId(id);
   }
 
   function leave() {
-    console.log('leave');
     setFocusedId('');
+  }
+
+  function selectListType(type: ListType) {
+    setListType(type);
+  }
+
+  function selectSortType(type: SortType) {
+    setSortType(type);
+  }
+
+  function selectOrderType(type: OrderType) {
+    setOrderType(type);
   }
 
   return (
     <div className="content-top">
       <Container className="pt-3">
         <ButtonGroup className="mb-3 me-3" aria-label="item-display">
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-equals" /></Button>
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrows-alt-v" /></Button>
-          <Button className="btn-outline-header" variant="null"><i className="far fa-credit-card" /></Button>
+          <Button className={listType === 'twoLine' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
+            <i className="fas fa-equals" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
+          <Button className={listType === 'expand' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
+            <i className="fas fa-arrows-alt-v" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
+          <Button className={listType === 'card' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
+            <i className="far fa-credit-card" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
         </ButtonGroup>
         <ButtonGroup className="mb-3 me-3" aria-label="item-display">
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-font" /></Button>
-          <Button className="btn-outline-header" variant="null"><i className="far fa-clock" /></Button>
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-tag" /></Button>
+          <Button className={sortType === 'dateSort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
+            <i className="far fa-clock" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
+          <Button className={sortType === 'charSort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="文字ソート" onClick={() => selectSortType('charSort')}>
+            <i className="fas fa-font" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
+          <Button className={sortType === 'categorySort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="カテゴリソート" onClick={() => selectSortType('categorySort')}>
+            <i className="fas fa-tag" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
         </ButtonGroup>
         <ButtonGroup className="mb-3" aria-label="item-display">
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrow-up" /></Button>
-          <Button className="btn-outline-header" variant="null"><i className="fas fa-arrow-down" /></Button>
+          <Button className={orderType === 'ascending' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
+            <i className="fas fa-arrow-up" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
+          <Button className={orderType === 'descending' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="降順" onClick={() => selectOrderType('descending')}>
+            <i className="fas fa-arrow-down" />
+            <ReactTooltip effect="float" type="dark" place="bottom" />
+          </Button>
         </ButtonGroup>
         <ListGroup>
-          {tasks && tasks.map((t) => (
+          {tasks && tasks.sort((a, b) => {
+            const isAscending = orderType === 'ascending';
+            switch (sortType) {
+              case 'dateSort':
+                if (isAscending) {
+                  return a.date > b.date ? 1 : -1;
+                }
+                return a.date < b.date ? 1 : -1;
+
+              case 'charSort':
+                if (isAscending) {
+                  return a.title > b.title ? 1 : -1;
+                }
+                return a.title < b.title ? 1 : -1;
+
+              case 'categorySort':
+                if (isAscending) {
+                  return a.category > b.category ? 1 : -1;
+                }
+                return a.category < b.category ? 1 : -1;
+
+              default:
+                return 1;
+            }
+          }).map((t) => (
             <ListGroup.Item className="list-item">
               <div className="cursor-pointer" onMouseEnter={() => enter(t.id)} onMouseLeave={leave}>
                 <span className="text-purple-color">{t.title}</span>
@@ -119,8 +185,14 @@ const List = () => {
                     {t.description}
                   </p>
                   <div className="col-2 text-end">
-                    <span className={['link-warning', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-box me-2 cursor-pointer" /></span>
-                    <span className={['link-danger', focusedId === t.id ? 'visible' : 'invisible'].join(' ')}><i className="fas fa-trash-alt me-1 cursor-pointer" /></span>
+                    <span className={['link-warning', focusedId === t.id ? 'visible' : 'invisible'].join(' ')} data-tip="保管">
+                      <i className="fas fa-box me-3 cursor-pointer" />
+                      <ReactTooltip effect="float" type="dark" place="bottom" />
+                    </span>
+                    <span className={['link-danger', focusedId === t.id ? 'visible' : 'invisible'].join(' ')} data-tip="削除">
+                      <i className="fas fa-trash-alt me-1 cursor-pointer" />
+                      <ReactTooltip effect="float" type="dark" place="bottom" />
+                    </span>
                   </div>
                 </div>
               </div>
