@@ -1,7 +1,8 @@
 import React from 'react';
 
+export type PageType = 'edit' | 'list'
 interface onChangePageType {
-  (type: string): void;
+  (type: PageType): void;
 }
 
 interface Props {
@@ -36,9 +37,9 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             おまかせ表示
           </li>
           <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" aria-hidden>
-            <i className="fas fa-hand-holding-heart" />
+            <i className="fas fa-boxes" />
             {' '}
-            振り返る
+            保管メモ
           </li>
           <li className="nav-item">
             <a className="nav-link link-purple-color" href="https://suzuri.jp/Memooth24/">

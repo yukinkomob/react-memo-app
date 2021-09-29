@@ -18,7 +18,14 @@ type ListType = 'twoLine' | 'expand' | 'card'
 type SortType = 'dateSort' | 'charSort' | 'categorySort'
 type OrderType = 'ascending' | 'descending'
 
-const List = () => {
+interface onSelectItemType {
+  (id: string): void;
+}
+interface Props {
+  onSelectItem: onSelectItemType
+}
+
+const List: React.FC<Props> = ({ onSelectItem }) => {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [focusedId, setFocusedId] = useState<string>('');
   const [listType, setListType] = useState<ListType>('twoLine');
@@ -79,11 +86,11 @@ const List = () => {
     getTasks();
   }, []);
 
-  function enter(id: string) {
+  function enterListItem(id: string) {
     setFocusedId(id);
   }
 
-  function leave() {
+  function leaveListItem() {
     setFocusedId('');
   }
 
@@ -102,7 +109,7 @@ const List = () => {
   return (
     <div className="content-top">
       <Container className="pt-3">
-        <ButtonGroup className="mb-3 me-3" aria-label="item-display">
+        <ButtonGroup className="mb-3 me-5" aria-label="item-display">
           <Button className={listType === 'twoLine' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
             <i className="fas fa-equals" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
@@ -116,7 +123,7 @@ const List = () => {
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
         </ButtonGroup>
-        <ButtonGroup className="mb-3 me-3" aria-label="item-display">
+        <ButtonGroup className="mb-3 me-2" aria-label="item-display">
           <Button className={sortType === 'dateSort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
             <i className="far fa-clock" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
@@ -166,9 +173,13 @@ const List = () => {
                 return 1;
             }
           }).map((t) => (
-            <ListGroup.Item className="list-item">
-              <div className="cursor-pointer" onMouseEnter={() => enter(t.id)} onMouseLeave={leave}>
-                <span className="text-purple-color">{t.title}</span>
+            <ListGroup.Item className="list-item" onClick={() => onSelectItem(t.id)}>
+              <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
+                <span className="text-purple-color">
+                  <i className="far fa-sticky-note" />
+                  {' '}
+                  {t.title}
+                </span>
                 {' '}
                 {' '}
                 {' '}

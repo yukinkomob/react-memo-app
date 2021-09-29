@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import Header from './Header';
+import Header, { PageType } from './Header';
 import List from './List';
 import MemoEditor from './MemoEditor';
 
 function Main() {
   const [newId, setNewId] = useState<string>('');
-  const [pageType, setPageType] = useState<string>('');
+  const [pageType, setPageType] = useState<PageType>('edit');
 
   function todayDateStr() {
     const date = new Date(Date.now());
@@ -42,9 +42,14 @@ function Main() {
       });
   }
 
-  function changePage(type: string) {
+  function changePage(type: PageType) {
     console.log('type', type);
     setPageType(type);
+  }
+
+  function selectItem(id: string) {
+    setPageType('edit');
+    setNewId(id);
   }
 
   function getTasks() {
@@ -92,13 +97,13 @@ function Main() {
       <Header
         onNewTask={() => newTask()}
         onRecommendTask={() => recommendTask()}
-        onChangePage={(t: string) => changePage(t)}
+        onChangePage={(t: PageType) => changePage(t)}
       />
       {
-        pageType === '' && <MemoEditor newId={newId} />
+        pageType === 'edit' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <List />
+        pageType === 'list' && <List onSelectItem={(id: string) => selectItem(id)} />
       }
     </>
   );
