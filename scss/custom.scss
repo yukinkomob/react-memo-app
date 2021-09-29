@@ -21,3 +21,30 @@
     font-size: 0.8rem;
     color: #777777;
 }
+
+.link-purple-color {
+    color: rgb(36, 7, 71) !important
+}
+
+.link-purple-color:hover {
+    color: rgb(79, 16, 156) !important
+}
+
+.link-red-color {
+    color: rgb(239, 82, 91) !important
+}
+
+.link-orange-color {
+    color: rgb(241, 172, 144) !important
+}
+
+.btn-outline-header {
+    color: rgb(79, 16, 156);
+    border-color: rgb(79, 16, 156);
+}
+
+.btn-outline-header:hover {
+    color: #fff;
+    background-color: rgb(79, 16, 156);
+    border-color: rgb(79, 16, 156);
+}
