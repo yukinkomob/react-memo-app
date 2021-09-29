@@ -42,7 +42,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             保管メモ
           </li>
           <li className="nav-item">
-            <a className="nav-link link-purple-color" href="https://suzuri.jp/Memooth24/">
+            <a className="nav-link link-purple-color" href="https://suzuri.jp/Miimo/">
               <i className="fas fa-store" />
               {' '}
               ストア

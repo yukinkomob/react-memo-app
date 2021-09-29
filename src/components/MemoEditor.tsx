@@ -260,25 +260,22 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
         <div className="mb-3">
           <Row>
             <Col>
-              <button type="button" className="col-3 btn btn-outline-info me-3" onClick={toggleDrawer}>
+              <button type="button" className="col-3 btn btn-outline-header me-3" onClick={toggleDrawer}>
                 <i className="far fa-folder-open" />
                 {' '}
                 ツリーを表示
               </button>
-              <button type="button" className="btn btn-outline-secondary me-3" onClick={toggleDrawer}>
+              {/* TODO: ラベル追加 */}
+              <button type="button" className="d-none btn btn-outline-secondary me-3" onClick={toggleDrawer}>
                 <i className="fas fa-tags" />
                 {' '}
                 ラベルを追加
               </button>
-              <button type="button" className="btn btn-outline-secondary me-3" onClick={toggleDrawer}>
-                <i className="fas fa-paperclip" />
-                {' '}
-                取り置く
+              <button type="button" className="btn btn-outline-warning me-3" onClick={toggleDrawer}>
+                <i className="fas fa-box-open" />
               </button>
               <button type="button" className="btn btn-outline-danger" onClick={toggleDrawer}>
                 <i className="far fa-trash-alt" />
-                {' '}
-                削除
               </button>
             </Col>
           </Row>
