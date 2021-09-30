@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
 import {
+  Button, ButtonGroup,
   Col,
   Container, FloatingLabel, Form, Row,
 } from 'react-bootstrap';
 
 import 'react-modern-drawer/dist/index.css';
+import ReactTooltip from 'react-tooltip';
 
 interface Task {
   id: string,
@@ -28,6 +30,7 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [markDiv, setMarkDiv] = useState<boolean>(false);
   const [updatedTask, setUpdatedTask] = useState<Task | null>(null);
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -114,6 +117,34 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
     }
   }
 
+  function changeMarkDiv() {
+    const newMarkDiv = !markDiv;
+    const id = selectedId;
+    let newTask: Task | null | undefined = null;
+    if (tasks !== null && tasks !== undefined) {
+      const tempTasks = tasks.map((t) => {
+        if (t.id === id) {
+          const task = {
+            id: t.id,
+            title: t.title,
+            category: t.category,
+            description: t.description,
+            date: t.date,
+            markDiv: newMarkDiv,
+          };
+          return task;
+        }
+        return t;
+      });
+      newTask = tempTasks.find((t) => t.id === id);
+      setTasks(tempTasks);
+    }
+    setMarkDiv(newMarkDiv);
+    if (newTask !== null && newTask !== undefined) {
+      setUpdatedTask(newTask);
+    }
+  }
+
   function selectTask(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
     const id = e.currentTarget.id.split('list-')[1];
     setSelectedId(id);
@@ -122,15 +153,13 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
       setTitle(task.title);
       setCategory(task.category);
       setDescription(task.description);
+      setMarkDiv(task.markDiv);
     }
     localStorage.setItem('currentId', id);
     console.log(id);
   }
 
-  function deleteTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    console.log('e.currentTarget.id', e.currentTarget.id);
-    const id = e.currentTarget.id.split('delBtn')[1];
-
+  function deleteTaskById(id: string) {
     const token = localStorage.getItem('token');
     console.log('token', token);
     const headers = {
@@ -164,6 +193,12 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
     const newTasks = tasks?.filter((t) => t.id !== id);
     console.log('newTasks', newTasks);
     setTasks(newTasks);
+  }
+
+  function deleteTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    console.log('e.currentTarget.id', e.currentTarget.id);
+    const id = e.currentTarget.id.split('delBtn')[1];
+    deleteTaskById(id);
   }
 
   useEffect(() => {
@@ -243,6 +278,7 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
             setTitle(task.title);
             setCategory(task.category);
             setDescription(task.description);
+            setMarkDiv(task.markDiv);
           }
           console.log(res.data);
         })
@@ -260,7 +296,7 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
         <div className="mb-3">
           <Row>
             <Col>
-              <button type="button" className="col-3 btn btn-outline-header me-3" onClick={toggleDrawer}>
+              <button type="button" className="col-3 btn btn-outline-header" onClick={toggleDrawer}>
                 <i className="far fa-folder-open" />
                 {' '}
                 ツリーを表示
@@ -271,12 +307,16 @@ const MemoEditor: React.FC<Props> = ({ newId }) => {
                 {' '}
                 ラベルを追加
               </button>
-              <button type="button" className="btn btn-outline-warning me-3" onClick={toggleDrawer}>
-                <i className="fas fa-box-open" />
-              </button>
-              <button type="button" className="btn btn-outline-danger" onClick={toggleDrawer}>
-                <i className="far fa-trash-alt" />
-              </button>
+              <ButtonGroup className="mb-3 col-2 offset-7" aria-label="item-display">
+                <Button type="button" onClick={() => changeMarkDiv()} variant="outline-warning" data-tip={markDiv ? '一覧に戻す' : '保管する'}>
+                  {markDiv ? (<i className="fas fa-list" />) : (<i className="fas fa-box-open" />)}
+                  <ReactTooltip effect="float" type="dark" place="bottom" />
+                </Button>
+                <Button type="button" onClick={() => deleteTaskById(selectedId)} variant="outline-danger" data-tip="削除する">
+                  <i className="far fa-trash-alt" />
+                  <ReactTooltip effect="float" type="dark" place="bottom" />
+                </Button>
+              </ButtonGroup>
             </Col>
           </Row>
         </div>

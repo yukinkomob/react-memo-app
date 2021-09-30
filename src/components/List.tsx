@@ -319,7 +319,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
           }).map((t) => (
             <ListGroup.Item className={pageType === 'list' ? 'list-item' : 'list-item-gray'} onClick={() => onSelectItem(t.id)}>
               <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
-                <span className="text-purple-color">
+                <span className={pageType === 'list' ? 'text-purple-color' : 'link-secondary'}>
                   <i className="far fa-sticky-note" />
                   {' '}
                   {t.title}
