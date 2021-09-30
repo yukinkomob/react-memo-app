@@ -335,7 +335,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
                 </div>
                 <br />
                 <div className="row">
-                  <p className="text-nowrap text-black-50 text-truncate list-subtext mb-0 col-10">
+                  <p className={['text-black-50 list-subtext mb-0 col-10', listType === 'expand' ? 'text-wrap' : 'text-nowrap text-truncate'].join(' ')}>
                     {'> '}
                     {t.description}
                   </p>
