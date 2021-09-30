@@ -31,15 +31,15 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             {' '}
             並べて表示
           </li>
-          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" onClick={onRecommendTask} aria-hidden>
-            <i className="fas fa-hand-holding-heart" />
-            {' '}
-            おまかせ表示
-          </li>
           <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" onClick={() => onChangePage('warehouse')} aria-hidden>
             <i className="fas fa-boxes" />
             {' '}
             倉庫
+          </li>
+          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" onClick={onRecommendTask} aria-hidden>
+            <i className="fas fa-hand-holding-heart" />
+            {' '}
+            おまかせ表示
           </li>
           <li className="nav-item">
             <a className="nav-link link-purple-color" href="https://suzuri.jp/Miimo/">
