@@ -71,8 +71,35 @@
     border-color: rgb(62, 7, 129);
 }
 
+.btn-outline-header-gray {
+    color: rgb(161, 161, 161);
+    border-color: rgb(161, 161, 161);
+}
+
+.btn-outline-header-gray:hover {
+    color: #fff;
+    background-color: rgb(161, 161, 161);
+    border-color: rgb(161, 161, 161);
+}
+
+.btn-outline-header-pushed-gray {
+    color: #fff;
+    background-color: rgb(161, 161, 161);
+    border-color: rgb(161, 161, 161);
+}
+
+.btn-outline-header-pushed-gray:hover {
+    color: #fff;
+    background-color: rgb(112, 112, 112);
+    border-color: rgb(112, 112, 112);
+}
+
 .bg-category {
     background-color: rgb(192, 196, 224);
+}
+
+.bg-category-gray {
+    background-color: rgb(190, 190, 190);
 }
 
 .list-item {
@@ -81,6 +108,14 @@
 
 .list-item:hover {
     background-color: rgb(225, 226, 240);;
+}
+
+.list-item-gray {
+    background-color: white;
+}
+
+.list-item-gray:hover {
+    background-color: rgb(238, 238, 238);;
 }
 
 .list-icon-items {

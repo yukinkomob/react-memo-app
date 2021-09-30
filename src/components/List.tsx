@@ -227,43 +227,64 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
     setOrderType(type);
   }
 
+  function getListStyle(type: ListType): string {
+    if (pageType === 'list') {
+      return listType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    }
+    return listType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+  }
+
+  function getSortStyle(type: SortType): string {
+    if (pageType === 'list') {
+      return sortType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    }
+    return sortType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+  }
+
+  function getOrderStyle(type: OrderType): string {
+    if (pageType === 'list') {
+      return orderType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    }
+    return orderType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+  }
+
   return (
     <div className="content-top">
       <Container className="pt-3">
         <ButtonGroup className="mb-3 me-5" aria-label="item-display">
-          <Button className={listType === 'twoLine' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
+          <Button className={getListStyle('twoLine')} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
             <i className="fas fa-equals" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
-          <Button className={listType === 'expand' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
+          <Button className={getListStyle('expand')} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
             <i className="fas fa-arrows-alt-v" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
-          <Button className={listType === 'card' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
+          <Button className={getListStyle('card')} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
             <i className="far fa-credit-card" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mb-3 me-2" aria-label="item-display">
-          <Button className={sortType === 'dateSort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
+          <Button className={getSortStyle('dateSort')} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
             <i className="far fa-clock" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
-          <Button className={sortType === 'charSort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="文字ソート" onClick={() => selectSortType('charSort')}>
+          <Button className={getSortStyle('charSort')} variant="null" data-tip="文字ソート" onClick={() => selectSortType('charSort')}>
             <i className="fas fa-font" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
-          <Button className={sortType === 'categorySort' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="カテゴリソート" onClick={() => selectSortType('categorySort')}>
+          <Button className={getSortStyle('categorySort')} variant="null" data-tip="カテゴリソート" onClick={() => selectSortType('categorySort')}>
             <i className="fas fa-tag" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mb-3" aria-label="item-display">
-          <Button className={orderType === 'ascending' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
+          <Button className={getOrderStyle('ascending')} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
             <i className="fas fa-arrow-up" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
-          <Button className={orderType === 'descending' ? 'btn-outline-header-pushed' : 'btn-outline-header'} variant="null" data-tip="降順" onClick={() => selectOrderType('descending')}>
+          <Button className={getOrderStyle('descending')} variant="null" data-tip="降順" onClick={() => selectOrderType('descending')}>
             <i className="fas fa-arrow-down" />
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
@@ -294,7 +315,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
                 return 1;
             }
           }).map((t) => (
-            <ListGroup.Item className="list-item" onClick={() => onSelectItem(t.id)}>
+            <ListGroup.Item className={pageType === 'list' ? 'list-item' : 'list-item-gray'} onClick={() => onSelectItem(t.id)}>
               <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
                 <span className="text-purple-color">
                   <i className="far fa-sticky-note" />
@@ -305,7 +326,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
                 {' '}
                 {' '}
                 <div className="position-absolute top-0 end-0 mt-1 me-5">
-                  <span className="block text-right me-5 badge rounded-pill bg-category">{t.category}</span>
+                  <span className={['block', 'text-right', 'me-5', 'badge', 'rounded-pill', pageType === 'list' ? 'bg-category' : 'bg-category-gray'].join(' ')}>{t.category}</span>
                 </div>
                 <div className="position-absolute top-0 end-0 mt-1 me-3">
                   <span className="block text-right list-date">{makeDateStr(t.date)}</span>
