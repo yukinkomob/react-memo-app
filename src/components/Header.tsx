@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type PageType = 'edit' | 'list'
+export type PageType = 'edit' | 'list' | 'warehouse'
 interface onChangePageType {
   (type: PageType): void;
 }
@@ -36,10 +36,10 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
             {' '}
             おまかせ表示
           </li>
-          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" aria-hidden>
+          <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" onClick={() => onChangePage('warehouse')} aria-hidden>
             <i className="fas fa-boxes" />
             {' '}
-            保管メモ
+            倉庫
           </li>
           <li className="nav-item">
             <a className="nav-link link-purple-color" href="https://suzuri.jp/Miimo/">

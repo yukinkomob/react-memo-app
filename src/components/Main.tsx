@@ -103,7 +103,10 @@ function Main() {
         pageType === 'edit' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <List onSelectItem={(id: string) => selectItem(id)} />
+        pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} />
+      }
+      {
+        pageType === 'warehouse' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} />
       }
     </>
   );
