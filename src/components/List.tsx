@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {
-  Button, ButtonGroup, Container, ListGroup,
+  Button, ButtonGroup, Container, ListGroup, Row,
 } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
 import { PageType } from './Header';
@@ -251,44 +251,46 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
   return (
     <div className="content-top">
       <Container className="pt-3">
-        <ButtonGroup className="mb-3 me-5" aria-label="item-display">
-          <Button className={getListStyle('twoLine')} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
-            <i className="fas fa-equals" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-          <Button className={getListStyle('expand')} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
-            <i className="fas fa-arrows-alt-v" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-          <Button className={getListStyle('card')} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
-            <i className="far fa-credit-card" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="mb-3 me-2" aria-label="item-display">
-          <Button className={getSortStyle('dateSort')} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
-            <i className="far fa-clock" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-          <Button className={getSortStyle('charSort')} variant="null" data-tip="文字ソート" onClick={() => selectSortType('charSort')}>
-            <i className="fas fa-font" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-          <Button className={getSortStyle('categorySort')} variant="null" data-tip="カテゴリソート" onClick={() => selectSortType('categorySort')}>
-            <i className="fas fa-tag" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="mb-3" aria-label="item-display">
-          <Button className={getOrderStyle('ascending')} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
-            <i className="fas fa-arrow-up" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-          <Button className={getOrderStyle('descending')} variant="null" data-tip="降順" onClick={() => selectOrderType('descending')}>
-            <i className="fas fa-arrow-down" />
-            <ReactTooltip effect="float" type="dark" place="bottom" />
-          </Button>
-        </ButtonGroup>
+        <Row>
+          <ButtonGroup className="mb-3 col-2" aria-label="item-display">
+            <Button className={getListStyle('twoLine')} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
+              <i className="fas fa-equals" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+            <Button className={getListStyle('expand')} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
+              <i className="fas fa-arrows-alt-v" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+            <Button className={getListStyle('card')} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
+              <i className="far fa-credit-card" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup className="mb-3 col-2 offset-6" aria-label="item-display">
+            <Button className={getSortStyle('dateSort')} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
+              <i className="far fa-clock" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+            <Button className={getSortStyle('charSort')} variant="null" data-tip="文字ソート" onClick={() => selectSortType('charSort')}>
+              <i className="fas fa-font" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+            <Button className={getSortStyle('categorySort')} variant="null" data-tip="カテゴリソート" onClick={() => selectSortType('categorySort')}>
+              <i className="fas fa-tag" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup className="mb-3 col-2" aria-label="item-display">
+            <Button className={getOrderStyle('ascending')} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
+              <i className="fas fa-arrow-up" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+            <Button className={getOrderStyle('descending')} variant="null" data-tip="降順" onClick={() => selectOrderType('descending')}>
+              <i className="fas fa-arrow-down" />
+              <ReactTooltip effect="float" type="dark" place="bottom" />
+            </Button>
+          </ButtonGroup>
+        </Row>
         <ListGroup>
           {tasks && tasks.filter((t) => filterOnMark(t.markDiv)).sort((a, b) => {
             const isAscending = orderType === 'ascending';
