@@ -101,7 +101,7 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
                 <a className="dropdown-item link-purple-color" href="http://www.google.com/">
                   <i className="fas fa-running" />
                   {' '}
-                  開発ストーリー
+                  開発メモ
                 </a>
               </li>
               <li>
