@@ -36,6 +36,7 @@ function Main() {
         console.log(res);
         const task = res.data;
         setNewId(task.id);
+        setPageType('edit');
       })
       .catch((error) => {
         console.log(error);
@@ -90,6 +91,7 @@ function Main() {
   function recommendTask() {
     console.log('recom');
     getTasks();
+    setPageType('edit');
   }
 
   return (
