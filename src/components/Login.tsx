@@ -46,8 +46,6 @@ function Login() {
 
       <br />
       <Link to="/Edit">Edit</Link>
-      <br />
-      <Link to="/Register">Register</Link>
     </div>
   );
 }

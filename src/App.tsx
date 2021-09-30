@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Main from 'components/Main';
 import Login from './components/Login';
-import Register from './components/Register';
 
 import './App.scss';
 
@@ -16,9 +15,6 @@ function App() {
       <Router>
         <Route exact path="/Edit">
           <Main />
-        </Route>
-        <Route exact path="/Register">
-          <Register />
         </Route>
         <Route exact path="/">
           <Login />
