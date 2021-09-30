@@ -69,15 +69,17 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
                   アプリの設定
                 </a>
               </li>
+              {/* TODO */}
               <li>
-                <a className="dropdown-item link-purple-color" href="http://www.google.com/">
+                <a className="d-none dropdown-item link-purple-color" href="http://www.google.com/">
                   <i className="fas fa-user" />
                   {' '}
                   アカウントの設定
                 </a>
               </li>
+              {/* TODO */}
               <li>
-                <a className="dropdown-item link-purple-color" href="http://www.google.com/">
+                <a className="d-none dropdown-item link-purple-color" href="http://www.google.com/">
                   <i className="fab fa-android" />
                   {' '}
                   Android /
@@ -87,11 +89,19 @@ const Header: React.FC<Props> = ({ onNewTask, onRecommendTask, onChangePage }) =
                   iOS
                 </a>
               </li>
+              {/* TODO */}
               <li>
-                <a className="dropdown-item link-purple-color" href="http://www.google.com/">
+                <a className="d-none dropdown-item link-purple-color" href="http://www.google.com/">
                   <i className="fas fa-arrow-circle-up" />
                   {' '}
                   有料版のご紹介
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item link-purple-color" href="http://www.google.com/">
+                  <i className="fas fa-running" />
+                  {' '}
+                  開発ストーリー
                 </a>
               </li>
               <li>
