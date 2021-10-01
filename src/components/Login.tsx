@@ -25,9 +25,11 @@ function Login() {
 
   return (
     <div>
-      <Container className="mt-5" style={{ width: '18rem' }}>
+      <Container className="position-absolute top-50 start-50 translate-middle" style={{ width: '18rem' }}>
         <Form>
-          <h3 className="text-center mb-3">サインイン</h3>
+          <div className="text-center mb-3">
+            <img src="/login-icon.png" width="100px" alt="logo" />
+          </div>
           <Form.Group controlId="formBasicEmail">
             <Form.Control type="email" className="rounded-0 rounded-top border-bottom-0" placeholder="メールアドレス" />
           </Form.Group>
@@ -35,10 +37,10 @@ function Login() {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control type="password" className="rounded-0 rounded-bottom" placeholder="パスワード" />
           </Form.Group>
-          <Button variant="primary" type="submit" className="w-100 mb-2">
+          <Button variant="null" type="submit" className="w-100 mb-2 btn-outline-header-pushed">
             ログイン
           </Button>
-          <Button variant="btn btn-outline-primary" type="button" className="w-100 mb-3" href="https://docs.google.com/forms/d/e/1FAIpQLSfQjkLLoes1I9k-mJbrAm6KJWP_Arl0H-93lwR4hJiF_qeBmg/viewform">
+          <Button variant="btn btn-outline-header" type="button" className="w-100 mb-3" href="https://docs.google.com/forms/d/e/1FAIpQLSfQjkLLoes1I9k-mJbrAm6KJWP_Arl0H-93lwR4hJiF_qeBmg/viewform">
             新規登録
           </Button>
         </Form>
