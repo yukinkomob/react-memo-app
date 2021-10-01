@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -24,12 +24,15 @@ const miimoChats = [
 ];
 
 function Login() {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
   const headers = {
     'Content-Type': 'application/json',
   };
   const body = {
-    email: 'yukinkopen@gmail.com',
-    password: 'react',
+    email,
+    password,
   };
 
   axios.post('https://raisetech-memo-api.herokuapp.com/api/login', body, { headers })
@@ -46,6 +49,16 @@ function Login() {
     return miimoChats[idx];
   }
 
+  function changeEmail(e: any) {
+    const newEmail = e.currentTarget.value;
+    setEmail(newEmail);
+  }
+
+  function changePassword(e: any) {
+    const newPassword = e.currentTarget.value;
+    setPassword(newPassword);
+  }
+
   return (
     <div>
       <Container className="position-absolute top-50 start-50 translate-middle" style={{ width: '18rem' }}>
@@ -55,13 +68,29 @@ function Login() {
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </div>
           <Form.Group controlId="formBasicEmail">
-            <Form.Control type="email" className="rounded-0 rounded-top border-bottom-0" placeholder="メールアドレス" />
+            <Form.Control
+              type="email"
+              className="rounded-0 rounded-top border-bottom-0"
+              placeholder="メールアドレス"
+              value={email}
+              onChange={(e) => changeEmail(e)}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" className="rounded-0 rounded-bottom" placeholder="パスワード" />
+            <Form.Control
+              type="password"
+              className="rounded-0 rounded-bottom"
+              placeholder="パスワード"
+              value={password}
+              onChange={(e) => changePassword(e)}
+            />
           </Form.Group>
-          <Button variant="null" type="submit" className="w-100 mb-2 btn-outline-header-pushed">
+          <Button
+            variant="null"
+            type="submit"
+            className="w-100 mb-2 btn-outline-header-pushed"
+          >
             ログイン
           </Button>
           <Button variant="btn btn-outline-header" type="button" className="w-100 mb-3" href="https://docs.google.com/forms/d/e/1FAIpQLSfQjkLLoes1I9k-mJbrAm6KJWP_Arl0H-93lwR4hJiF_qeBmg/viewform" data-tip="こちらはRaiseTech フロントエンドコース受講者のみ登録依頼が可能です。">
