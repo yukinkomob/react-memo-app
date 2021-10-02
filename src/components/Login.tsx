@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
@@ -110,9 +109,6 @@ function Login() {
           </Button>
         </Form>
       </Container>
-
-      <br />
-      <Link to="/Edit">Edit</Link>
     </div>
   );
 }
