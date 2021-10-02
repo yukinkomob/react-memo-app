@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
+import { useHistory } from 'react-router';
 
 const miimoChats = [
   'メモアプリ Memoothにようこそ！',
@@ -27,21 +28,30 @@ function Login() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const history = useHistory();
+
   const headers = {
     'Content-Type': 'application/json',
   };
+
   const body = {
     email,
     password,
   };
 
-  axios.post('https://raisetech-memo-api.herokuapp.com/api/login', body, { headers })
-    .then((res) => {
-      console.log(res);
-      const { data } = res;
-      console.log('token', data.access_token);
-      localStorage.setItem('token', data.access_token);
-    });
+  function login() {
+    axios.post('https://raisetech-memo-api.herokuapp.com/api/login', body, { headers })
+      .then((res) => {
+        console.log(res);
+        const { data } = res;
+        console.log('token', data.access_token);
+        localStorage.setItem('token', data.access_token);
+        history.push('/Edit');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
   function getMiimoChats(): string {
     const date = new Date(Date.now());
@@ -88,12 +98,13 @@ function Login() {
           </Form.Group>
           <Button
             variant="null"
-            type="submit"
+            type="button"
             className="w-100 mb-2 btn-outline-header-pushed"
+            onClick={() => login()}
           >
             ログイン
           </Button>
-          <Button variant="btn btn-outline-header" type="button" className="w-100 mb-3" href="https://docs.google.com/forms/d/e/1FAIpQLSfQjkLLoes1I9k-mJbrAm6KJWP_Arl0H-93lwR4hJiF_qeBmg/viewform" data-tip="こちらはRaiseTech フロントエンドコース受講者のみ登録依頼が可能です。">
+          <Button variant="btn btn-outline-header" type="button" className="w-100 mb-3" href="#" data-tip="現在は非対応です…。">
             新規登録
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>

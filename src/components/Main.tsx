@@ -6,7 +6,7 @@ import MemoEditor from './MemoEditor';
 
 function Main() {
   const [newId, setNewId] = useState<string>('');
-  const [pageType, setPageType] = useState<PageType>('edit');
+  const [pageType, setPageType] = useState<PageType>('list');
 
   function todayDateStr() {
     const date = new Date(Date.now());
