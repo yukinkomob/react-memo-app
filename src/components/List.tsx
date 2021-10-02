@@ -316,43 +316,50 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
               default:
                 return 1;
             }
-          }).map((t) => (
-            <ListGroup.Item className={pageType === 'list' ? 'list-item' : 'list-item-gray'} onClick={() => onSelectItem(t.id)}>
-              <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
-                <span className={pageType === 'list' ? 'text-purple-color' : 'link-secondary'}>
-                  <i className="far fa-sticky-note" />
-                  {' '}
-                  {t.title}
-                </span>
-                {' '}
-                {' '}
-                {' '}
-                <div className="position-absolute top-0 end-0 mt-1 me-5">
-                  <span className={['block', 'text-right', 'me-5', 'badge', 'rounded-pill', pageType === 'list' ? 'bg-category' : 'bg-category-gray'].join(' ')}>{t.category}</span>
-                </div>
-                <div className="position-absolute top-0 end-0 mt-1 me-3">
-                  <span className="block text-right list-date">{makeDateStr(t.date)}</span>
-                </div>
-                <br />
-                <div className="row">
-                  <p className={['text-black-50 list-subtext mb-0 col-10', listType === 'expand' ? 'text-wrap' : 'text-nowrap text-truncate'].join(' ')}>
-                    {'> '}
-                    {t.description}
-                  </p>
-                  <div className="col-2 text-end">
-                    <button type="button" value={t.markDiv ? '1' : '-1'} id={`markBtn${t.id}`} className={['link-warning', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="保管する" onClick={(e) => updateMarkDiv(e, t.id)}>
-                      <i className="fas fa-box me-1 cursor-pointer" />
-                      <ReactTooltip effect="float" type="dark" place="bottom" />
-                    </button>
-                    <button type="button" id={`delBtn${t.id}`} className={['link-danger', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="削除する" onClick={deleteTask}>
-                      <i className="fas fa-trash-alt me-1 cursor-pointer" />
-                      <ReactTooltip effect="float" type="dark" place="bottom" />
-                    </button>
+          }).map((t) => {
+            if (listType === 'twoLine' || listType === 'expand') {
+              return (
+                <ListGroup.Item className={pageType === 'list' ? 'list-item' : 'list-item-gray'} onClick={() => onSelectItem(t.id)}>
+                  <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
+                    <span className={pageType === 'list' ? 'text-purple-color' : 'link-secondary'}>
+                      <i className="far fa-sticky-note" />
+                      {' '}
+                      {t.title}
+                    </span>
+                    {' '}
+                    {' '}
+                    {' '}
+                    <div className="position-absolute top-0 end-0 mt-1 me-5">
+                      <span className={['block', 'text-right', 'me-5', 'badge', 'rounded-pill', pageType === 'list' ? 'bg-category' : 'bg-category-gray'].join(' ')}>{t.category}</span>
+                    </div>
+                    <div className="position-absolute top-0 end-0 mt-1 me-3">
+                      <span className="block text-right list-date">{makeDateStr(t.date)}</span>
+                    </div>
+                    <br />
+                    <div className="row">
+                      <p className={['text-black-50 list-subtext mb-0 col-10', listType === 'expand' ? 'text-wrap' : 'text-nowrap text-truncate'].join(' ')}>
+                        {'> '}
+                        {t.description}
+                      </p>
+                      <div className="col-2 text-end">
+                        <button type="button" value={t.markDiv ? '1' : '-1'} id={`markBtn${t.id}`} className={['link-warning', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="保管する" onClick={(e) => updateMarkDiv(e, t.id)}>
+                          <i className="fas fa-box me-1 cursor-pointer" />
+                          <ReactTooltip effect="float" type="dark" place="bottom" />
+                        </button>
+                        <button type="button" id={`delBtn${t.id}`} className={['link-danger', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="削除する" onClick={deleteTask}>
+                          <i className="fas fa-trash-alt me-1 cursor-pointer" />
+                          <ReactTooltip effect="float" type="dark" place="bottom" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </ListGroup.Item>
-          ))}
+                </ListGroup.Item>
+              );
+            } if (listType === 'card') {
+              return <div>test</div>;
+            }
+            return <div>invalid string</div>;
+          })}
         </ListGroup>
       </Container>
     </div>
