@@ -356,7 +356,22 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
                 </ListGroup.Item>
               );
             } if (listType === 'card') {
-              return <div>test</div>;
+              return (
+                <div className="card-top card mb-3 w-50">
+                  <div className="row g-0">
+                    <div className="col-md-4">
+                      <img className="w-100" src="https://pbs.twimg.com/profile_images/454497813200502784/s7xItCXZ_400x400.jpeg" alt="profile" />
+                    </div>
+                    <div className="col-md-8">
+                      <div className="card-body">
+                        <h5 className="card-title">{t.title}</h5>
+                        <p className="card-text card-text-area">{t.description}</p>
+                        <p className="card-text"><small className="text-muted">{makeDateStr(t.date)}</small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
             }
             return <div>invalid string</div>;
           })}

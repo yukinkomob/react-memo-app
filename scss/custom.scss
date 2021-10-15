@@ -125,3 +125,14 @@
 .list-icon-items:hover {
     visibility: visible;
 }
+
+.card-top {
+    max-width: 540px;
+}
+
+.card-text-area {
+    height: calc( 1.25em * 5 );
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
