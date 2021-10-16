@@ -207,6 +207,28 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
     }
   }
 
+  function getMiimoImg(date: string): string {
+    const day = new Date(date).getDay();
+    switch (day) {
+      case 0: // Sun
+        return '/miimo-card/memorun.png';
+      case 1:
+        return '/miimo-card/memory.png';
+      case 2:
+        return '/miimo-card/memoreel.png';
+      case 3:
+        return '/miimo-card/meemo.png';
+      case 4:
+        return '/miimo-card/memozine.png';
+      case 5:
+        return '/miimo-card/memomo.png';
+      case 6:
+        return '/miimo-card/memostar.png';
+      default:
+        return '';
+    }
+  }
+
   function enterListItem(id: string) {
     setFocusedId(id);
   }
@@ -358,10 +380,10 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
             } if (listType === 'card') {
               return (
                 <>
-                  <div className="card-top card mb-3 col-5 mx-2">
+                  <div className="card-top card mb-3 col-5 mx-4">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img className="w-100" src="https://pbs.twimg.com/profile_images/454497813200502784/s7xItCXZ_400x400.jpeg" alt="profile" />
+                        <img className="w-100" src={getMiimoImg(t.date)} alt="profile" />
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
