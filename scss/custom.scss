@@ -94,6 +94,29 @@
     border-color: rgb(112, 112, 112);
 }
 
+.btn-outline-header-green {
+    color: rgb(25, 135, 84);
+    border-color: rgb(25, 135, 84);
+}
+
+.btn-outline-header-green:hover {
+    color: #fff;
+    background-color: rgb(25, 135, 84);
+    border-color: rgb(25, 135, 84);
+}
+
+.btn-outline-header-pushed-green {
+    color: #fff;
+    background-color: rgb(25, 135, 84);
+    border-color: rgb(25, 135, 84);
+}
+
+.btn-outline-header-pushed-green:hover {
+    color: #fff;
+    background-color: rgb(19, 94, 59);
+    border-color: rgb(19, 94, 59);
+}
+
 .bg-category {
     background-color: rgb(192, 196, 224);
 }
@@ -102,12 +125,16 @@
     background-color: rgb(190, 190, 190);
 }
 
+.bg-category-green {
+    background-color: rgb(170, 207, 190);
+}
+
 .list-item {
     background-color: white;
 }
 
 .list-item:hover {
-    background-color: rgb(225, 226, 240);;
+    background-color: rgb(225, 226, 240);
 }
 
 .list-item-gray {
@@ -115,7 +142,15 @@
 }
 
 .list-item-gray:hover {
-    background-color: rgb(238, 238, 238);;
+    background-color: rgb(238, 238, 238);
+}
+
+.list-item-green {
+    background-color: white;
+}
+
+.list-item-green:hover {
+    background-color: rgb(192, 233, 214);
 }
 
 .list-icon-items {

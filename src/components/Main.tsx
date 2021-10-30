@@ -7,6 +7,7 @@ import MemoEditor from './MemoEditor';
 function Main() {
   const [newId, setNewId] = useState<string>('');
   const [pageType, setPageType] = useState<PageType>('list');
+  const [keyword, setKeyword] = useState<string>('');
 
   function todayDateStr() {
     const date = new Date(Date.now());
@@ -46,6 +47,10 @@ function Main() {
   function changePage(type: PageType) {
     console.log('type', type);
     setPageType(type);
+  }
+
+  function changeKeyword(word: string) {
+    setKeyword(word);
   }
 
   function selectItem(id: string) {
@@ -100,15 +105,19 @@ function Main() {
         onNewTask={() => newTask()}
         onRecommendTask={() => recommendTask()}
         onChangePage={(t: PageType) => changePage(t)}
+        onChangeKeyword={(word: string) => changeKeyword(word)}
       />
       {
         pageType === 'edit' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} />
+        pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" />
       }
       {
-        pageType === 'warehouse' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} />
+        pageType === 'warehouse' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" />
+      }
+      {
+        pageType === 'search' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword={keyword} />
       }
     </>
   );

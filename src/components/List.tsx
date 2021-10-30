@@ -25,9 +25,10 @@ interface onSelectItemType {
 interface Props {
   onSelectItem: onSelectItemType
   pageType: PageType
+  keyword: string
 }
 
-const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
+const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
   const [tasks, setTasks] = useState<Array<Task>>();
   const [focusedId, setFocusedId] = useState<string>('');
   const [listType, setListType] = useState<ListType>('twoLine');
@@ -202,9 +203,27 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
         return !markDivArg;
       case 'warehouse':
         return markDivArg;
+      case 'search':
+        return true;
       default:
         return false;
     }
+  }
+
+  function filterByKeyword(task: Task): boolean {
+    if (keyword === '') {
+      return true;
+    }
+    if (task.title.indexOf(keyword) !== -1) {
+      return true;
+    } if (task.category.indexOf(keyword) !== -1) {
+      return true;
+    } if (task.description.indexOf(keyword) !== -1) {
+      return true;
+    } if (task.date.indexOf(keyword) !== -1) {
+      return true;
+    }
+    return false;
   }
 
   function getMiimoImg(date: string): string {
@@ -252,22 +271,46 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
   function getListStyle(type: ListType): string {
     if (pageType === 'list') {
       return listType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    } if (pageType === 'warehouse') {
+      return listType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
     }
-    return listType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+    return listType === type ? 'btn-outline-header-pushed-green' : 'btn-outline-header-green';
   }
 
   function getSortStyle(type: SortType): string {
     if (pageType === 'list') {
       return sortType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    } if (pageType === 'warehouse') {
+      return sortType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
     }
-    return sortType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+    return sortType === type ? 'btn-outline-header-pushed-green' : 'btn-outline-header-green';
   }
 
   function getOrderStyle(type: OrderType): string {
     if (pageType === 'list') {
       return orderType === type ? 'btn-outline-header-pushed' : 'btn-outline-header';
+    } if (pageType === 'warehouse') {
+      return orderType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
     }
-    return orderType === type ? 'btn-outline-header-pushed-gray' : 'btn-outline-header-gray';
+    return orderType === type ? 'btn-outline-header-pushed-green' : 'btn-outline-header-green';
+  }
+
+  function getCategoryColor(): string {
+    if (pageType === 'list') {
+      return 'bg-category';
+    } if (pageType === 'warehouse') {
+      return 'bg-category-gray';
+    }
+    return 'bg-category-green';
+  }
+
+  function getListColor(): string {
+    if (pageType === 'list') {
+      return 'list-item';
+    } if (pageType === 'warehouse') {
+      return 'list-item-gray';
+    }
+    return 'list-item-green';
   }
 
   return (
@@ -314,7 +357,9 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
           </ButtonGroup>
         </Row>
         <div className="flex row">
-          {tasks && tasks.filter((t) => filterOnMark(t.markDiv)).sort((a, b) => {
+          {/* eslint-disable max-len */
+          tasks && tasks.filter((t) => filterOnMark(t.markDiv)).filter((t) => filterByKeyword(t)).sort((a, b) => {
+            /* eslint-enable max-len */
             const isAscending = orderType === 'ascending';
             switch (sortType) {
               case 'dateSort':
@@ -341,9 +386,9 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
           }).map((t) => {
             if (listType === 'twoLine' || listType === 'expand') {
               return (
-                <ListGroup.Item className={pageType === 'list' ? 'list-item' : 'list-item-gray'} onClick={() => onSelectItem(t.id)}>
+                <ListGroup.Item className={getListColor()} onClick={() => onSelectItem(t.id)}>
                   <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
-                    <span className={pageType === 'list' ? 'text-purple-color' : 'link-secondary'}>
+                    <span>
                       <i className="far fa-sticky-note" />
                       {' '}
                       {t.title}
@@ -352,7 +397,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
                     {' '}
                     {' '}
                     <div className="position-absolute top-0 end-0 mt-1 me-5">
-                      <span className={['block', 'text-right', 'me-5', 'badge', 'rounded-pill', pageType === 'list' ? 'bg-category' : 'bg-category-gray'].join(' ')}>{t.category}</span>
+                      <span className={['block', 'text-right', 'me-5', 'badge', 'rounded-pill', getCategoryColor()].join(' ')}>{t.category}</span>
                     </div>
                     <div className="position-absolute top-0 end-0 mt-1 me-3">
                       <span className="block text-right list-date">{makeDateStr(t.date)}</span>
@@ -398,7 +443,8 @@ const List: React.FC<Props> = ({ onSelectItem, pageType }) => {
               );
             }
             return <div>invalid string</div>;
-          })}
+          })
+}
         </div>
       </Container>
     </div>
