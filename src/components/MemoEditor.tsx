@@ -192,12 +192,6 @@ const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
     }
   }
 
-  function deleteTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    console.log('e.currentTarget.id', e.currentTarget.id);
-    const id = e.currentTarget.id.split('delBtn')[1];
-    deleteTaskById(id);
-  }
-
   useEffect(() => {
     function updateTask(newTask: Task) {
       const token = localStorage.getItem('token');
@@ -269,7 +263,7 @@ const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
               <button type="button" className="col-3 btn btn-outline-header" onClick={toggleDrawer}>
                 <i className="far fa-folder-open" />
                 {' '}
-                ツリーを表示
+                メモリストを表示
               </button>
               {/* TODO: ラベル追加 */}
               <button type="button" className="d-none btn btn-outline-secondary me-3" onClick={toggleDrawer}>
@@ -341,8 +335,6 @@ const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
             {tasks && tasks.map((t: Task) => (
               <li id={`list-${t.id}`} className="list-unstyled link-primary" onClick={selectTask} aria-hidden>
                 {t.title}
-                {' '}
-                <button id={`delBtn${t.id}`} className="btn-close" type="button" onClick={deleteTask}> </button>
               </li>
             ))}
           </ul>
