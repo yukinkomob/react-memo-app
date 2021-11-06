@@ -40,6 +40,10 @@ function Main() {
         const task = res.data;
         setNewId(task.id);
         setPageType('edit');
+        if (tasks) {
+          tasks.push(task);
+          setTasks(tasks);
+        }
       })
       .catch((error) => {
         console.log(error);

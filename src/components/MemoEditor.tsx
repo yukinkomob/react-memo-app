@@ -1,5 +1,7 @@
 import axios from 'axios';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {
+  Fragment, useCallback, useEffect, useState,
+} from 'react';
 import Drawer from 'react-modern-drawer';
 import {
   Button, ButtonGroup,
@@ -232,27 +234,31 @@ const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
     }
   }, [updatedTask]);
 
-  useEffect(() => {
+  const findAndSetTaskParam = useCallback((currentId: string) => {
     if (tasks) {
-      let currentId: string | null = null;
-      if (newId !== '') {
-        currentId = newId;
-        localStorage.setItem('currentId', currentId);
-      } else {
-        currentId = localStorage.getItem('currentId');
-      }
-      if (currentId) {
-        setSelectedId(currentId);
-        const task = tasks.find((t: any) => t.id === currentId);
-        if (task) {
-          setTitle(task.title);
-          setCategory(task.category);
-          setDescription(task.description);
-          setMarkDiv(task.markDiv);
-        }
+      const task = tasks.find((t: any) => t.id === currentId);
+      if (task) {
+        setTitle(task.title);
+        setCategory(task.category);
+        setDescription(task.description);
+        setMarkDiv(task.markDiv);
       }
     }
-  }, [newId, tasks]);
+  }, [tasks]);
+
+  useEffect(() => {
+    let currentId: string | null = null;
+    if (newId !== '') {
+      currentId = newId;
+      localStorage.setItem('currentId', currentId);
+    } else {
+      currentId = localStorage.getItem('currentId');
+    }
+    if (currentId) {
+      setSelectedId(currentId);
+      findAndSetTaskParam(currentId);
+    }
+  }, [newId, findAndSetTaskParam]);
 
   return (
     <div>
