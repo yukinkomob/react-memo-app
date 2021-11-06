@@ -6,7 +6,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { PageType } from './Header';
 
-interface Task {
+export interface Task {
   id: string,
   title: string,
   category: string,
@@ -26,10 +26,13 @@ interface Props {
   onSelectItem: onSelectItemType
   pageType: PageType
   keyword: string
+  tasks: Task[] | undefined
+  updateTasks: (t: Array<Task>) => void
 }
 
-const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
-  const [tasks, setTasks] = useState<Array<Task>>();
+const List: React.FC<Props> = ({
+  onSelectItem, pageType, keyword, tasks, updateTasks,
+}) => {
   const [focusedId, setFocusedId] = useState<string>('');
   const [listType, setListType] = useState<ListType>('twoLine');
   const [sortType, setSortType] = useState<SortType>('dateSort');
@@ -51,44 +54,6 @@ const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
     }
     return date;
   }
-
-  useEffect(() => {
-    function getTasks() {
-      console.log('getTasks');
-
-      const token = localStorage.getItem('token');
-      console.log('token', token);
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      axios
-        .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
-          headers,
-        })
-        .then((res) => {
-          console.log(res);
-          const taskList = res.data.map((d: any) => {
-            const task = {
-              id: d.id,
-              title: d.title,
-              category: d.category,
-              description: d.description,
-              date: d.date,
-              markDiv: d.mark_div,
-            };
-            return task;
-          });
-          setTasks(taskList);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
-    getTasks();
-  }, []);
 
   useEffect(() => {
     console.log('useEffect#1');
@@ -150,7 +115,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
         return t;
       });
       newTask = tempTasks.find((t) => t.id === id);
-      setTasks(tempTasks);
+      updateTasks(tempTasks);
       if (newTask !== null && newTask !== undefined) {
         setUpdatedTask(newTask);
       }
@@ -185,7 +150,7 @@ const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
           };
           return task;
         });
-        setTasks(taskList);
+        updateTasks(taskList);
         console.log(res.data);
       })
       .catch((error) => {
@@ -194,7 +159,9 @@ const List: React.FC<Props> = ({ onSelectItem, pageType, keyword }) => {
 
     const newTasks = tasks?.filter((t) => t.id !== id);
     console.log('newTasks', newTasks);
-    setTasks(newTasks);
+    if (newTasks !== undefined) {
+      updateTasks(newTasks);
+    }
   }
 
   function filterOnMark(markDivArg: boolean): boolean {

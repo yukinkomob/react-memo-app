@@ -1,13 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header, { PageType } from './Header';
-import List from './List';
+import List, { Task } from './List';
 import MemoEditor from './MemoEditor';
 
 function Main() {
   const [newId, setNewId] = useState<string>('');
   const [pageType, setPageType] = useState<PageType>('list');
   const [keyword, setKeyword] = useState<string>('');
+  const [tasks, setTasks] = useState<Array<Task>>();
+  const updateTasks = (t: Array<Task>): void => setTasks(t);
 
   function todayDateStr() {
     const date = new Date(Date.now());
@@ -58,7 +60,7 @@ function Main() {
     setNewId(id);
   }
 
-  function getTasks() {
+  function getRandomTasks() {
     console.log('getTasks');
 
     const token = localStorage.getItem('token');
@@ -95,9 +97,47 @@ function Main() {
 
   function recommendTask() {
     console.log('recom');
-    getTasks();
+    getRandomTasks();
     setPageType('edit');
   }
+
+  useEffect(() => {
+    function getTasks() {
+      console.log('getTasks');
+
+      const token = localStorage.getItem('token');
+      console.log('token', token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+        .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
+          headers,
+        })
+        .then((res) => {
+          console.log(res);
+          const taskList = res.data.map((d: any) => {
+            const task = {
+              id: d.id,
+              title: d.title,
+              category: d.category,
+              description: d.description,
+              date: d.date,
+              markDiv: d.mark_div,
+            };
+            return task;
+          });
+          setTasks(taskList);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    getTasks();
+  }, []);
 
   return (
     <>
@@ -111,13 +151,13 @@ function Main() {
         pageType === 'edit' && <MemoEditor newId={newId} />
       }
       {
-        pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" />
+        pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" tasks={tasks} updateTasks={updateTasks} />
       }
       {
-        pageType === 'warehouse' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" />
+        pageType === 'warehouse' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" tasks={tasks} updateTasks={updateTasks} />
       }
       {
-        pageType === 'search' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword={keyword} />
+        pageType === 'search' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword={keyword} tasks={tasks} updateTasks={updateTasks} />
       }
     </>
   );
