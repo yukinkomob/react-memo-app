@@ -11,15 +11,6 @@ import 'react-modern-drawer/dist/index.css';
 import ReactTooltip from 'react-tooltip';
 import { Task } from './List';
 
-// interface Task {
-//   id: string,
-//   title: string,
-//   category: string,
-//   description: string,
-//   date: string,
-//   markDiv: boolean
-// }
-
 interface Props {
   newId: string
   tasks: Task[] | undefined
@@ -27,7 +18,6 @@ interface Props {
 }
 
 const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
-  // const [tasks, setTasks] = useState<Array<Task>>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -243,57 +233,6 @@ const MemoEditor: React.FC<Props> = ({ newId, tasks, updateTasks }) => {
   }, [updatedTask]);
 
   useEffect(() => {
-    // function getTasks() {
-    //   console.log('getTasks');
-
-    //   const token = localStorage.getItem('token');
-    //   console.log('token', token);
-    //   const headers = {
-    //     Authorization: `Bearer ${token}`,
-    //   };
-
-    //   axios
-    //     .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
-    //       headers,
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       const taskList = res.data.map((d: any) => {
-    //         const task = {
-    //           id: d.id,
-    //           title: d.title,
-    //           category: d.category,
-    //           description: d.description,
-    //           date: d.date,
-    //           markDiv: d.mark_div,
-    //         };
-    //         return task;
-    //       });
-    //       updateTasks(taskList);
-    //       let currentId: string | null = null;
-    //       if (newId !== '') {
-    //         currentId = newId;
-    //         localStorage.setItem('currentId', currentId);
-    //       } else {
-    //         currentId = localStorage.getItem('currentId');
-    //       }
-    //       if (currentId) {
-    //         setSelectedId(currentId);
-    //         const task = taskList.find((t: any) => t.id === currentId);
-    //         setTitle(task.title);
-    //         setCategory(task.category);
-    //         setDescription(task.description);
-    //         setMarkDiv(task.markDiv);
-    //       }
-    //       console.log(res.data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-
-    // getTasks();
-
     if (tasks) {
       let currentId: string | null = null;
       if (newId !== '') {
