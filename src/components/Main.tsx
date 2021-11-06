@@ -68,37 +68,6 @@ function Main() {
       const base = total % tasks.length;
       setNewId(tasks[base].id);
     }
-
-    // const token = localStorage.getItem('token');
-    // console.log('token', token);
-    // const headers = {
-    //   Authorization: `Bearer ${token}`,
-    // };
-
-    // axios
-    //   .get('https://raisetech-memo-api.herokuapp.com/api/memos', {
-    //     headers,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     const taskList = res.data.map((d: any) => {
-    //       const task = {
-    //         id: d.id,
-    //         title: d.title,
-    //         category: d.category,
-    //         description: d.description,
-    //         date: d.date,
-    //         markDiv: d.mark_div,
-    //       };
-    //       return task;
-    //     });
-    //     const total = Math.floor(1000000 * Math.random());
-    //     const base = total % taskList.length;
-    //     setNewId(taskList[base].id);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
 
   function recommendTask() {
@@ -154,7 +123,7 @@ function Main() {
         onChangeKeyword={(word: string) => changeKeyword(word)}
       />
       {
-        pageType === 'edit' && <MemoEditor newId={newId} />
+        pageType === 'edit' && <MemoEditor newId={newId} tasks={tasks} updateTasks={updateTasks} />
       }
       {
         pageType === 'list' && <List pageType={pageType} onSelectItem={(id: string) => selectItem(id)} keyword="" tasks={tasks} updateTasks={updateTasks} />
