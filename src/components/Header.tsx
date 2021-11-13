@@ -137,8 +137,8 @@ const Header: React.FC<Props> = ({
             </li>
           </ul>
           <form className="d-flex">
-            <input className="form-control me-2" type="search" value={keyword} onChange={(e) => changeKeyword(e)} placeholder="検索" data-tip="タイトル・日付・カテゴリ・内容で検索" aria-label="Search" />
-            <button className="btn btn-outline-success" type="button" onClick={() => onChangePage('search')}>Search</button>
+            <input className="form-control me-2 header-search-input" type="search" value={keyword} onChange={(e) => changeKeyword(e)} placeholder="検索" data-tip="タイトル・日付・カテゴリ・内容で検索" aria-label="Search" />
+            <button className="btn btn-outline-success header-search-button" type="button" onClick={() => onChangePage('search')}>Search</button>
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </form>
         </div>
