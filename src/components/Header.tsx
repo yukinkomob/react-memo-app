@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 export type PageType = 'edit' | 'list' | 'warehouse' | 'search'
@@ -21,11 +22,17 @@ const Header: React.FC<Props> = ({
   onNewTask, onRecommendTask, onChangePage, onChangeKeyword,
 }) => {
   const [keyword, setKeyword] = useState('');
+  const history = useHistory();
 
   function changeKeyword(e: any) {
     const word = e.currentTarget.value;
     setKeyword(word);
     onChangeKeyword(word);
+  }
+
+  function logout() {
+    localStorage.removeItem('token');
+    history.push('/');
   }
 
   return (
@@ -72,12 +79,10 @@ const Header: React.FC<Props> = ({
                 設定
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown01">
-                <li>
-                  <a className="dropdown-item link-purple-color" href="http://www.google.com/">
-                    <i className="fas fa-sign-out-alt" />
-                    {' '}
-                    ログアウト
-                  </a>
+                <li id="list2-" className="dropdown-item link-purple-color cursor-pointer" onClick={logout} aria-hidden>
+                  <i className="fas fa-sign-out-alt" />
+                  {' '}
+                  ログアウト
                 </li>
                 <li>
                   <a className="dropdown-item link-purple-color" href="http://www.google.com/">
