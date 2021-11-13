@@ -66,7 +66,7 @@ const Header: React.FC<Props> = ({
               おまかせ表示
             </li>
             <li className="nav-item">
-              <a className="nav-link link-purple-color" href="https://suzuri.jp/Miimo/">
+              <a className="nav-link link-purple-color" href="https://suzuri.jp/Miimo/" target="_blank" rel="noreferrer noopener">
                 <i className="fas fa-store" />
                 {' '}
                 ストア
@@ -120,7 +120,7 @@ const Header: React.FC<Props> = ({
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item link-purple-color" href="http://www.google.com/">
+                  <a className="dropdown-item link-purple-color" href="https://www.notion.so/acb9a18a90ea4624aa76a3d0372537ed" target="_blank" rel="noreferrer noopener">
                     <i className="fas fa-running" />
                     {' '}
                     開発メモ
