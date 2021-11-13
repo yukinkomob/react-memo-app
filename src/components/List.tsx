@@ -283,8 +283,8 @@ const List: React.FC<Props> = ({
   return (
     <div className="content-top">
       <Container className="pt-3">
-        <Row>
-          <ButtonGroup className="mb-3 col-2" aria-label="item-display">
+        <Row className="ps-0 pe-0">
+          <ButtonGroup className="mb-3 col-2 list-control-button-group" aria-label="item-display">
             <Button className={getListStyle('twoLine')} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
               <i className="fas fa-equals" />
               <ReactTooltip effect="float" type="dark" place="bottom" />
@@ -298,7 +298,7 @@ const List: React.FC<Props> = ({
               <ReactTooltip effect="float" type="dark" place="bottom" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup className="mb-3 col-2 offset-6" aria-label="item-display">
+          <ButtonGroup className="mb-3 col-2 offset-5 list-control-button-group" aria-label="item-display">
             <Button className={getSortStyle('dateSort')} variant="null" data-tip="更新日時ソート" onClick={() => selectSortType('dateSort')}>
               <i className="far fa-clock" />
               <ReactTooltip effect="float" type="dark" place="bottom" />
@@ -312,7 +312,7 @@ const List: React.FC<Props> = ({
               <ReactTooltip effect="float" type="dark" place="bottom" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup className="mb-3 col-2" aria-label="item-display">
+          <ButtonGroup className="mb-3 col-2 offset-1 list-control-button-group" aria-label="item-display">
             <Button className={getOrderStyle('ascending')} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
               <i className="fas fa-arrow-up" />
               <ReactTooltip effect="float" type="dark" place="bottom" />
