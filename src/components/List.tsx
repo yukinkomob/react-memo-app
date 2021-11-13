@@ -356,7 +356,7 @@ const List: React.FC<Props> = ({
                 <ListGroup.Item className={getListColor()} onClick={() => onSelectItem(t.id)}>
                   <div className="cursor-pointer" onMouseEnter={() => enterListItem(t.id)} onMouseLeave={leaveListItem}>
                     <span>
-                      <i className="far fa-sticky-note" />
+                      <i className={t.markDiv ? 'fas fa-box' : 'far fa-sticky-note'} />
                       {' '}
                       {t.title}
                     </span>
@@ -376,8 +376,8 @@ const List: React.FC<Props> = ({
                         {t.description}
                       </p>
                       <div className="col-2 text-end">
-                        <button type="button" value={t.markDiv ? '1' : '-1'} id={`markBtn${t.id}`} className={['link-warning', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="保管する" onClick={(e) => updateMarkDiv(e, t.id)}>
-                          <i className="fas fa-box me-1 cursor-pointer" />
+                        <button type="button" value={t.markDiv ? '1' : '-1'} id={`markBtn${t.id}`} className={['link-warning', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip={t.markDiv ? '取り出す' : '保管する'} onClick={(e) => updateMarkDiv(e, t.id)}>
+                          <i className={[t.markDiv ? 'far fa-sticky-note' : 'fas fa-box', 'me-1', 'cursor-pointer'].join(' ')} />
                           <ReactTooltip effect="float" type="dark" place="bottom" />
                         </button>
                         <button type="button" id={`delBtn${t.id}`} className={['link-danger', focusedId === t.id ? 'visible' : 'invisible', 'list-icon-button'].join(' ')} data-tip="削除する" onClick={deleteTask}>
