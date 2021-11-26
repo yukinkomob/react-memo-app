@@ -283,14 +283,16 @@ const List: React.FC<Props> = ({
   return (
     <div className="content-top">
       <Container className="pt-3">
-        <Row className="ps-0 pe-0">
+        <Row className="ps-0 pe-0 d-flex justify-content-between">
           <ButtonGroup className="mb-3 col-2 list-control-button-group" aria-label="item-display">
             <Button className={getListStyle('twoLine')} variant="null" data-tip="2行表示" onClick={() => selectListType('twoLine')}>
               <i className="fas fa-equals" />
               <ReactTooltip effect="float" type="dark" place="bottom" />
             </Button>
             <Button className={getListStyle('expand')} variant="null" data-tip="拡大表示" onClick={() => selectListType('expand')}>
+              {' '}
               <i className="fas fa-arrows-alt-v" />
+              {' '}
               <ReactTooltip effect="float" type="dark" place="bottom" />
             </Button>
             <Button className={getListStyle('card')} variant="null" data-tip="カード表示" onClick={() => selectListType('card')}>
@@ -312,7 +314,7 @@ const List: React.FC<Props> = ({
               <ReactTooltip effect="float" type="dark" place="bottom" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup className="mb-3 col-2 offset-1 list-control-button-group" aria-label="item-display">
+          <ButtonGroup className="mb-3 col-1_3 list-control-button-group" aria-label="item-display">
             <Button className={getOrderStyle('ascending')} variant="null" data-tip="昇順" onClick={() => selectOrderType('ascending')}>
               <i className="fas fa-arrow-up" />
               <ReactTooltip effect="float" type="dark" place="bottom" />
