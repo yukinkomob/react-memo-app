@@ -56,6 +56,30 @@ function convertOrderType(orderType: string): OrderType {
   }
 }
 
+function getInitListType(): ListType {
+  const initListType = localStorage.getItem('listButton-listType');
+  if (initListType != null) {
+    return convertListType(initListType);
+  }
+  return 'twoLine';
+}
+
+function getInitSortType(): SortType {
+  const initSortType = localStorage.getItem('listButton-sortType');
+  if (initSortType != null) {
+    return convertSortType(initSortType);
+  }
+  return 'dateSort';
+}
+
+function getInitOrderType(): OrderType {
+  const initOrderType = localStorage.getItem('listButton-orderType');
+  if (initOrderType != null) {
+    return convertOrderType(initOrderType);
+  }
+  return 'ascending';
+}
+
 interface onSelectItemType {
   (id: string): void;
 }
@@ -71,9 +95,9 @@ const List: React.FC<Props> = ({
   onSelectItem, pageType, keyword, tasks, updateTasks,
 }) => {
   const [focusedId, setFocusedId] = useState<string>('');
-  const [listType, setListType] = useState<ListType>('twoLine');
-  const [sortType, setSortType] = useState<SortType>('dateSort');
-  const [orderType, setOrderType] = useState<OrderType>('ascending');
+  const [listType, setListType] = useState<ListType>(getInitListType());
+  const [sortType, setSortType] = useState<SortType>(getInitSortType());
+  const [orderType, setOrderType] = useState<OrderType>(getInitOrderType());
   const [updatedTask, setUpdatedTask] = useState<Task | null>(null);
 
   function makeDateStr(date: string) {
@@ -91,21 +115,6 @@ const List: React.FC<Props> = ({
     }
     return date;
   }
-
-  useEffect(() => {
-    const initListType = localStorage.getItem('listButton-listType');
-    if (initListType != null) {
-      setListType(convertListType(initListType));
-    }
-    const initSortType = localStorage.getItem('listButton-sortType');
-    if (initSortType != null) {
-      setSortType(convertSortType(initSortType));
-    }
-    const initOrderType = localStorage.getItem('listButton-orderType');
-    if (initOrderType != null) {
-      setOrderType(convertOrderType(initOrderType));
-    }
-  }, []);
 
   useEffect(() => {
     console.log('useEffect#1');
