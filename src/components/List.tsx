@@ -19,6 +19,43 @@ type ListType = 'twoLine' | 'expand' | 'card'
 type SortType = 'dateSort' | 'charSort' | 'categorySort'
 type OrderType = 'ascending' | 'descending'
 
+function convertListType(listType: string): ListType {
+  switch (listType) {
+    case 'twoLine':
+      return 'twoLine';
+    case 'expand':
+      return 'expand';
+    case 'card':
+      return 'card';
+    default:
+      return 'twoLine';
+  }
+}
+
+function convertSortType(sortType: string): SortType {
+  switch (sortType) {
+    case 'dateSort':
+      return 'dateSort';
+    case 'charSort':
+      return 'charSort';
+    case 'categorySort':
+      return 'categorySort';
+    default:
+      return 'dateSort';
+  }
+}
+
+function convertOrderType(orderType: string): OrderType {
+  switch (orderType) {
+    case 'ascending':
+      return 'ascending';
+    case 'descending':
+      return 'descending';
+    default:
+      return 'ascending';
+  }
+}
+
 interface onSelectItemType {
   (id: string): void;
 }
@@ -54,6 +91,21 @@ const List: React.FC<Props> = ({
     }
     return date;
   }
+
+  useEffect(() => {
+    const initListType = localStorage.getItem('listButton-listType');
+    if (initListType != null) {
+      setListType(convertListType(initListType));
+    }
+    const initSortType = localStorage.getItem('listButton-sortType');
+    if (initSortType != null) {
+      setSortType(convertSortType(initSortType));
+    }
+    const initOrderType = localStorage.getItem('listButton-orderType');
+    if (initOrderType != null) {
+      setOrderType(convertOrderType(initOrderType));
+    }
+  }, []);
 
   useEffect(() => {
     console.log('useEffect#1');
@@ -225,14 +277,17 @@ const List: React.FC<Props> = ({
 
   function selectListType(type: ListType) {
     setListType(type);
+    localStorage.setItem('listButton-listType', type);
   }
 
   function selectSortType(type: SortType) {
     setSortType(type);
+    localStorage.setItem('listButton-sortType', type);
   }
 
   function selectOrderType(type: OrderType) {
     setOrderType(type);
+    localStorage.setItem('listButton-orderType', type);
   }
 
   function getListStyle(type: ListType): string {
