@@ -26,6 +26,7 @@ const miimoChats = [
 function Login() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const history = useHistory();
 
@@ -49,6 +50,22 @@ function Login() {
       })
       .catch((e) => {
         console.log(e);
+        console.log(e.response);
+        console.log(e.response.data);
+        console.log(e.response.status);
+        if (e !== undefined) {
+          switch (e.response.status) {
+            case 401:
+              setErrorMessage('認証情報に誤りがあります。');
+              break;
+            case 500:
+              setErrorMessage('エラーが発生しています。');
+              break;
+            default:
+              console.log(`errorCode = " + ${e.response.status}`);
+              break;
+          }
+        }
       });
   }
 
@@ -108,6 +125,8 @@ function Login() {
             <ReactTooltip effect="float" type="dark" place="bottom" />
           </Button>
         </Form>
+        {errorMessage !== ''
+        && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
       </Container>
     </div>
   );
