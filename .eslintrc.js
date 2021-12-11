@@ -63,7 +63,7 @@ module.exports = {
       },
     ],
     "import/no-extraneous-dependencies": [
-      "error", 
+      "error",
       {"devDependencies": true}
     ],
     'react/jsx-filename-extension': [
