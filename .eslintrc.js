@@ -35,13 +35,21 @@ module.exports = {
     // SEE: https://github.com/typescript-eslint/typescript-eslint/issues/1184
     'no-void': ['error', { allowAsStatement: true }],
     '@typescript-eslint/no-unused-vars': [
-      'error',
+      'warn',
       {
         vars: 'all',
         args: 'after-used',
         argsIgnorePattern: '_',
         ignoreRestSiblings: false,
         varsIgnorePattern: '_',
+      },
+    ],
+    "jsx-a11y/anchor-is-valid": [
+      "warn", {},
+    ],
+    "max-len": [
+      "warn", {
+        "code": 300
       },
     ],
     'import/extensions': [
