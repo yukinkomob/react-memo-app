@@ -36,14 +36,13 @@ const Header: React.FC<Props> = ({
   }
 
   return (
-    <nav className="navbar navbar-expand-md navbar bg-light border fixed-top">
+    <nav className="navbar navbar-expand-md navbar-light bg-light border fixed-top">
       <div className="container-fluid">
         <img className="header-logo" src="/logo.png" width="300px" height="100px" alt="logo" />
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="http://www.google.com/navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsTgt" aria-controls="navbarsTgt" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
-
-        <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+        <div className="collapse navbar-collapse" id="navbarsTgt">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li id="list-" className="nav-item nav-link list-unstyled link-primary cursor-pointer link-purple-color" onClick={onNewTask} aria-hidden>
               <i className="far fa-sticky-note" />
