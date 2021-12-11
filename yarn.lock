@@ -11788,7 +11788,7 @@ typescript@^4.1.2:
 
 typesync@^0.8.0:
   version "0.8.0"
-  resolved "https://registry.npmjs.org/typesync/-/typesync-0.8.0.tgz"
+  resolved "https://registry.yarnpkg.com/typesync/-/typesync-0.8.0.tgz#695e8f2b36109f6cf4b8a5d9dbcfca1e3afa455c"
   integrity sha512-2VZx10U4QpB03uYFvjbYvM3E+pYETL/aBi+o3GuhiWIY4TOVpyxcSOdYZn9qd2Qlfb0tMjdAAxHmMhriN/SlnQ==
   dependencies:
     awilix "^4.2.7"
